@@ -77,7 +77,7 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected String doInBackground(String... params) {
-			return postData("orders", params[0]);
+			return postData("orders/", params[0]);
 		}
 
 		@Override

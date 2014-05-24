@@ -1,23 +1,45 @@
 package de.openpizza.android.views;
 
-import de.openpizza.android.R;
-import de.openpizza.android.R.id;
-import de.openpizza.android.R.layout;
-import de.openpizza.android.R.menu;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.TextView;
 
-public abstract class OrderActivity extends ActionBarActivity {
+import com.google.gson.Gson;
+
+import de.openpizza.android.R;
+import de.openpizza.android.service.OrderService;
+import de.openpizza.android.service.data.DeliveryAddress;
+import de.openpizza.android.service.data.OrderRequest;
+import de.openpizza.android.service.data.OrderResponse;
+import de.openpizza.android.service.restapi.RESTServiceCall;
+import de.openpizza.android.service.restapi.RESTServiceHandler;
+
+public abstract class OrderActivity extends ActionBarActivity implements RESTServiceHandler<OrderResponse> {
+
+	private String nickname;
+	private RESTServiceCall<OrderRequest, OrderResponse> service;
 
 	protected abstract int getMenuId();
+	
+	@Override
+	public void handlePostResponse(OrderResponse response) {
+		Log.v("handlePostResponse", new Gson().toJson(response));
+		TextView link = (TextView) findViewById(R.id.link_text);
+		link.setText(response.getShort_link());
+	}
+	
+	@Override
+	public void handleGetResponse(OrderResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +50,12 @@ public abstract class OrderActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
+		nickname = "florian";
+		service = new OrderService(this);
+		OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
+				"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
+		service.httpPost(request, this);
 	}
 
 	@Override
@@ -38,7 +66,6 @@ public abstract class OrderActivity extends ActionBarActivity {
 		getMenuInflater().inflate(menuId, menu);
 		return true;
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
