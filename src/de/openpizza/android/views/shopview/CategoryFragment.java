@@ -13,8 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.openpizza.android.Category;
-import de.openpizza.android.Product;
 import de.openpizza.android.R;
+import de.openpizza.android.service.data.Product;
 import de.openpizza.android.views.ProductView;
 
 @SuppressLint("NewApi")
@@ -45,7 +45,7 @@ public class CategoryFragment extends Fragment {
 
 		ListView productList = (ListView) rootView.findViewById(R.id.category_list);
 		ArrayAdapter<Product> dataAdapter = new ArrayAdapter<Product>(this.getActivity(),
-				android.R.layout.simple_list_item_1, category.getProductList());
+				android.R.layout.simple_list_item_1, category.getProducts());
 		
 		productList.setAdapter(dataAdapter);
 		productList.setOnItemClickListener(new OnItemClickListener() {

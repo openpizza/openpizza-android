@@ -13,13 +13,14 @@ public class Shop {
 	private String postcode;
 	private String city;
 	private List<String> product_categories;
+	private List<Product> products;
 
 	public Shop() {
 		// Empty constructor needed for gson
 	}
 
 	public Shop(int id, String name, String address, String postcode,
-			String city, List<String> product_categories) {
+			String city, List<String> product_categories, List<Product> products) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -27,14 +28,7 @@ public class Shop {
 		this.postcode = postcode;
 		this.city = city;
 		this.product_categories = product_categories;
-	}
-
-	public List<String> getProduct_categories() {
-		return product_categories;
-	}
-
-	public void setProduct_categories(List<String> product_categories) {
-		this.product_categories = product_categories;
+		this.products = products;
 	}
 
 	public int getId() {
@@ -75,6 +69,22 @@ public class Shop {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public List<String> getProduct_categories() {
+		return product_categories;
+	}
+
+	public void setProduct_categories(List<String> product_categories) {
+		this.product_categories = product_categories;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 }

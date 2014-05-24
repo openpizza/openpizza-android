@@ -1,10 +1,18 @@
 package de.openpizza.android;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import de.openpizza.android.service.data.Product;
 
 public class Category {
 	private String name;
+	private List<Product> products;
+
+	public Category(String name, List<Product> products) {
+		super();
+		this.name = name;
+		this.products = products;
+	}
 
 	public String getName() {
 		return name;
@@ -14,33 +22,12 @@ public class Category {
 		this.name = name;
 	}
 
-	public Category(String name) {
-		super();
-		this.name = name;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public List<Product> getProductList() {
-		List<Product> test = new ArrayList<Product>();
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-		test.add(new Product());
-
-		return test;
-	}
-
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 }

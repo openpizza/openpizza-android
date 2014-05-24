@@ -1,8 +1,10 @@
 package de.openpizza.android.views;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +20,7 @@ import com.google.gson.Gson;
 import de.openpizza.android.Category;
 import de.openpizza.android.R;
 import de.openpizza.android.service.ShopIdService;
+import de.openpizza.android.service.data.Product;
 import de.openpizza.android.service.data.Shop;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
@@ -45,13 +48,21 @@ public class ShopView extends FragmentActivity implements
 
 	}
 
-	private static List<Category> product_categories2Categories(
-			List<String> categories) {
-		List<Category> categoryList = new ArrayList<Category>();
-		for (String string : categories) {
-			categoryList.add(new Category(string));
+	private static List<Category> shop2Categories(Shop shop) {
+		List<Category> categories = new ArrayList<Category>();
+
+		for (String category : shop.getProduct_categories()) {
+			categories.add(new Category(category, new ArrayList<Product>()));
 		}
-		return categoryList;
+
+		for (Product product : shop.getProducts()) {
+			for(Category cat : categories) {
+				if (cat.getName().equals(product.getCategory())) {
+					cat.getProducts().add(product);
+				}
+			}
+		}
+		return categories;
 	}
 
 	@Override
@@ -96,7 +107,7 @@ public class ShopView extends FragmentActivity implements
 	public void handleGetResponse(Shop response) {
 		Log.v("ShopView.java hat Daten erhalten", new Gson().toJson(response));
 		mAdapter = new ShopViewTabsPagerAdapter(getSupportFragmentManager(),
-				product_categories2Categories(response.getProduct_categories()));
+				shop2Categories(response));
 
 		viewPager.setAdapter(mAdapter);
 	}
