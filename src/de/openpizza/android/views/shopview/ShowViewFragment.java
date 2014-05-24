@@ -15,4 +15,5 @@ public class ShowViewFragment extends Fragment {
 				container, false);
 		return rootView;
 	}
+	
 }

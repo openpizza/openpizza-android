@@ -119,6 +119,7 @@ import de.openpizza.android.views.host.ShopViewHost;
 					// IntentSafe.getInstance().setData(bill.getId(), bill);
 					Intent intent = new Intent(getActivity(),
 							ShopViewHost.class);
+					intent.putExtra("SHOP_ID", shop.getId());
 					startActivity(intent);
 				}
 			});
@@ -212,7 +213,6 @@ class ShopListArrayAdapter extends ArrayAdapter<Shop> {
 		this.shopList = shopList;
 		addAll(shopList);
 		notifyDataSetChanged();
-		Log.v("setShoplist()", "NotifyDataSetChanged()");
 	}
 
 }
