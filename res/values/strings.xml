@@ -7,5 +7,7 @@
     <string name="title_activity_shop_overview">Shop Overview</string>
     <string name="title_activity_shop_view">ShopView</string>
     <string name="title_activity_product_view">ProductView</string>
+    <string name="title_activity_order">OrderActivity</string>
+    <string name="title_activity_send_order">Send Order</string>
 
 </resources>
