@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -91,6 +93,18 @@ public class ShopOverview extends ActionBarActivity {
 			shopList.add(new Shop());
 			ListAdapter listViewAdapter = new ShopListArrayAdapter(getActivity(), R.layout.fragment_shop_overview, shopList);
 			listView.setAdapter(listViewAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Shop shop = (Shop) view.getTag();
+					// IntentSafe.getInstance().setData(bill.getId(), bill);
+					Intent intent = new Intent(getActivity(),
+							ShopView.class);
+					intent.putExtra("shopId", shop.getId());
+					startActivity(intent);
+				}
+			});
 			return rootView;
 		}
 

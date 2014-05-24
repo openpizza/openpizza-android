@@ -6,4 +6,8 @@ public class Shop {
 		return "TestName";
 	}
 
+	public long getId() {
+		return 1;
+	}
+
 }

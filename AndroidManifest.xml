@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="de.openpizza.android.views.ShopView"
+            android:label="@string/title_activity_shop_view" >
+        </activity>
+        <activity
+            android:name="de.openpizza.android.ProductView"
+            android:label="@string/title_activity_product_view" >
+        </activity>
     </application>
 
 </manifest>
