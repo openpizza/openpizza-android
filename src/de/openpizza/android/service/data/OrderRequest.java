@@ -4,7 +4,7 @@ package de.openpizza.android.service.data;
 public class OrderRequest {
 	private int estimated_participants;
 	private int shop;
-	private DeliveryAddress address;
+	private DeliveryAddress delivery_address;
 	private String comment;
 	
 	public OrderRequest() {
@@ -16,7 +16,7 @@ public class OrderRequest {
 		super();
 		this.estimated_participants = estimated_participants;
 		this.shop = shop;
-		this.address = address;
+		this.delivery_address = address;
 		this.comment = comment;
 	}
 
@@ -37,11 +37,11 @@ public class OrderRequest {
 	}
 
 	public DeliveryAddress getAddress() {
-		return address;
+		return delivery_address;
 	}
 
 	public void setAddress(DeliveryAddress address) {
-		this.address = address;
+		this.delivery_address = address;
 	}
 
 	public String getComment() {
