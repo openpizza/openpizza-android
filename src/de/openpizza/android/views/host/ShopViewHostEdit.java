@@ -1,9 +1,9 @@
 package de.openpizza.android.views.host;
 
-import android.content.Intent;
 import android.view.MenuItem;
-import de.openpizza.android.views.ShopView;
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.views.ShopView;
 
 public class ShopViewHostEdit extends ShopView {
 
@@ -27,6 +27,7 @@ public class ShopViewHostEdit extends ShopView {
 
 
 	private void returnToOrderActivity() {
+		OrderFacade.sentProducts();
 		finish();
 	}
 

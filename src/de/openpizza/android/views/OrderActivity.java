@@ -53,8 +53,18 @@ public abstract class OrderActivity extends ActionBarActivity implements
 
 	@Override
 	public void onModelChanged() {
-//		getSupportFragmentManager().beginTransaction()
-//				.add(R.id.container, new PlaceholderFragment()).commit();
+		setProductList();
+		setMember();
+	}
+
+	private void setMember() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setProductList() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	protected abstract int getMenuId();
@@ -77,7 +87,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
-		Log.d("test", "nichek");
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -173,7 +182,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		nickname = nickname2;
 		OrderFacade.setNickname(nickname);
 		nickname_view = (TextView) this.findViewById(R.id.nickname_text);
-		nickname_view.setText("test");
+		nickname_view.setText(nickname2);
 
 	}
 
