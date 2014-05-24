@@ -6,7 +6,7 @@ import de.openpizza.android.service.data.Product;
 
 public class OrderFacade {
 	
-	private static Order INCTANCE;
+	private static Order INSTANCE;
 
 	private OrderFacade() {
 
@@ -14,29 +14,29 @@ public class OrderFacade {
 	}
 	
 	public static void newOrder(int shopid, Activity context) {
-		INCTANCE = new Order(shopid, context);
+		INSTANCE = new Order(shopid, context);
 	}
 	
 	public static void addProduct(Product product, int quantity) {
 		product.setQuantity(quantity);
-		INCTANCE.addProduct(product);
+		INSTANCE.addProduct(product);
 	}
 	
 	public static void publish() {
-		INCTANCE.publish();
+		INSTANCE.publish();
 	}
 	
 	public static void sentProducts() {
-		INCTANCE.sendProductList();
+		INSTANCE.sendProductList();
 	}
 
 	public static void setModeleChangedListener(
 			ModelChangedListener mcl) {
-		INCTANCE.addListener(mcl);
+		INSTANCE.addListener(mcl);
 	}
 
 	public static void setNickname(String nickname) {
-		INCTANCE.setNickname(nickname);
+		INSTANCE.setNickname(nickname);
 	}
 	
 

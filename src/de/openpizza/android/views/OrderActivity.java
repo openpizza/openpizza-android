@@ -3,10 +3,7 @@ package de.openpizza.android.views;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -35,19 +32,14 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.ModelChangedListener;
 import de.openpizza.android.dirty.OrderFacade;
-import de.openpizza.android.service.OrderService;
-import de.openpizza.android.service.data.DeliveryAddress;
-import de.openpizza.android.service.data.OrderRequest;
 import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
-import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 
 public abstract class OrderActivity extends ActionBarActivity implements
 		RESTServiceHandler<OrderResponse>, ModelChangedListener {
 
 	private String nickname;
-	private RESTServiceCall<OrderRequest, OrderResponse> service;
 	Timer t;
 	private TextView nickname_view;
 
@@ -119,6 +111,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 		OrderFacade.setNickname(nickname);
+		nickname_view = (TextView) findViewById(R.id.nickname_text);
 		nickname_view.setText("test");
 	}
 	

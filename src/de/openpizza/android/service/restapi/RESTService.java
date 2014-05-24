@@ -48,7 +48,7 @@ public abstract class RESTService<T> {
 			// Create a new HttpClient and Post Header
 			httpClient = new DefaultHttpClient();
 			HttpGet httpGet = new HttpGet("http://openpizza.apiary.io/" + suburl);
-			httpGet.addHeader("Content-Type", "application/json");
+			httpGet.addHeader("Accept", "application/json");
 			HttpResponse response = httpClient.execute(httpGet);
 
 			return EntityUtils.toString(response.getEntity());
