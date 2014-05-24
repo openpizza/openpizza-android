@@ -1,10 +1,14 @@
 package de.openpizza.android.views.host;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.OrderFacade;
 import de.openpizza.android.views.OrderActivity;
 import de.openpizza.android.views.SendOrderActivity;
+import de.openpizza.android.views.OrderActivity.PlaceholderFragment;
 
 public class OrderActivityHost extends OrderActivity {
 
@@ -41,5 +45,21 @@ public class OrderActivityHost extends OrderActivity {
 		Intent intent = new Intent(getApplicationContext(),
 				ShopViewHostEdit.class);
 		startActivity(intent);
+	}
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_order);
+		OrderFacade.setModeleChangedListener(this);
+		super.showGetNickDialog();
+	}
+
+	@Override
+	public void setNickname(String nickname) {
+		super.setNickname(nickname);
+		OrderFacade.publish();
+		OrderFacade.sentProducts();
+
 	}
 }

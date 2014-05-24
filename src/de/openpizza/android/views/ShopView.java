@@ -113,4 +113,9 @@ public abstract class ShopView extends FragmentActivity implements ActionBar.Tab
 		// TODO Auto-generated method stub
 
 	}
+
+
+	public int getShopId() {
+		return this.shop_id;
+	}
 }

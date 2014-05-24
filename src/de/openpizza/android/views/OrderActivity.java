@@ -33,6 +33,8 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.ModelChangedListener;
+import de.openpizza.android.dirty.OrderFacade;
 import de.openpizza.android.service.OrderService;
 import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.OrderRequest;
@@ -42,12 +44,18 @@ import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 
 public abstract class OrderActivity extends ActionBarActivity implements
-		RESTServiceHandler<OrderResponse> {
+		RESTServiceHandler<OrderResponse>, ModelChangedListener {
 
-	private Activity activity;
 	private String nickname;
 	private RESTServiceCall<OrderRequest, OrderResponse> service;
 	Timer t;
+	private TextView nickname_view;
+
+	@Override
+	public void onModelChanged() {
+		getSupportFragmentManager().beginTransaction()
+				.add(R.id.container, new PlaceholderFragment()).commit();
+	}
 
 	protected abstract int getMenuId();
 
@@ -69,44 +77,11 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		activity = this;
-		
-		
-
-		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-		final OrderActivity thisActivity = this;
-		service = new OrderService(thisActivity);
-		exec.scheduleAtFixedRate(new Runnable() {
-		           public void run() {
-		        	   runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							 OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
-										"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"), "");
-								service.httpPost(request, thisActivity);
-						}
-					});
-		        	  
-		           }
-		       }, 0, 60, TimeUnit.SECONDS); // execute every 60 seconds
-		
-		if (nickname == null) {
-			showGetNickDialog();
-		}
-		service = new OrderService(this);
-		OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
-				"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
-		service.httpPost(request, this);
+		nickname_view = (TextView) findViewById(R.id.nickname_text);
 
 	}
 
-	private void showGetNickDialog() {
+	protected void showGetNickDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Enter nickname:");
 
@@ -137,10 +112,10 @@ public abstract class OrderActivity extends ActionBarActivity implements
 
 	}
 
-	private void setNickname(String nickname) {
+	public void setNickname(String nickname) {
 		this.nickname = nickname;
-		TextView nickname_view = (TextView) findViewById(R.id.nickname_text);
-		nickname_view.setText(nickname);
+		OrderFacade.setNickname(nickname);
+		nickname_view.setText("test");
 
 	}
 

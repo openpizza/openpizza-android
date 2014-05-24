@@ -8,10 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.service.data.Product;
 
 public class ProductView extends ActionBarActivity {
 
+
+	private Product product;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,6 @@ public class ProductView extends ActionBarActivity {
 		return true;
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -47,11 +51,20 @@ public class ProductView extends ActionBarActivity {
 	}
 
 	private void saveItem() {
-		//TODO: add this product to the order
-		
-		// TODO: close this activity
+		EditText quanEditText = (EditText) findViewById(R.id.product_count);
+
+		// TODO: Update product if it dose allready exist
+		Integer quantity = 0;
+		try {
+			quantity = Integer.parseInt(quanEditText.getText().toString());
+			if (quantity != 0) {
+				OrderFacade.addProduct(this.product, quantity);
+			}
+		} catch (Exception e) {
+
+		}
 		finish();
-		
+
 	}
 
 	/**

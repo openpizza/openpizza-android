@@ -1,7 +1,11 @@
 package de.openpizza.android.views.host;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.service.ShopIdService;
 import de.openpizza.android.views.ShopView;
 import de.openpizza.android.R;
 
@@ -31,4 +35,14 @@ public class ShopViewHost extends ShopView {
 				OrderActivityHost.class);
 		startActivity(intent);
 	}
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		OrderFacade.newOrder(super.getShopId(), this);
+
+
+	}
+	
 }
