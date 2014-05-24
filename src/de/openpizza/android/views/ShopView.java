@@ -1,10 +1,8 @@
 package de.openpizza.android.views;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -30,14 +29,15 @@ public abstract class ShopView extends FragmentActivity implements ActionBar.Tab
 	private ViewPager viewPager;
 	private ShopViewTabsPagerAdapter mAdapter;
 	private int shop_id;
+	private TextView shop_name;
+	private TextView street;
+	private TextView plz;
+	private TextView city;
 
 	RESTServiceCall<Void, Shop> service;
 
-
 	/** give the Menu to load**/
 	protected abstract int getMenuId();
-	
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,9 @@ public abstract class ShopView extends FragmentActivity implements ActionBar.Tab
 		service.httpGet("shops/" + shop_id, "", this);
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.container);
-
+		
+		
+		
 	}
 
 	private static List<Category> shop2Categories(Shop shop) {
@@ -103,9 +105,19 @@ public abstract class ShopView extends FragmentActivity implements ActionBar.Tab
 	public void handleGetResponse(Shop response) {
 		Log.v("ShopView.java hat Daten erhalten", new Gson().toJson(response));
 		mAdapter = new ShopViewTabsPagerAdapter(getSupportFragmentManager(),
-				shop2Categories(response));
+				shop2Categories(response), response);
 
 		viewPager.setAdapter(mAdapter);
+		
+		shop_name = (TextView) findViewById(R.id.shop_name);
+		street = (TextView) findViewById(R.id.shop_street);
+		plz = (TextView) findViewById(R.id.shop_postcode);
+		city  = (TextView) findViewById(R.id.shop_city);
+		
+		shop_name.setText(response.getName());
+		street.setText(response.getAddress());
+		plz.setText(response.getPostcode());
+		city.setText(response.getCity());
 	}
 
 	@Override
