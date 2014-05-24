@@ -29,4 +29,9 @@ public class Category {
 		return test;
 	}
 
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -9,7 +9,7 @@
     tools:context="de.openpizza.android.ProductView$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,21 +19,21 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/product_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/product_name"
+        android:layout_alignRight="@+id/product_name"
+        android:layout_below="@+id/product_name"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/product_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignRight="@+id/product_desc"
+        android:layout_below="@+id/product_desc"
         android:ems="3"
         android:hint="0"
         android:maxLength="2"
@@ -43,11 +43,11 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/size_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/product_desc"
+        android:layout_below="@+id/product_count"
         android:text="Size:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -55,8 +55,8 @@
         android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/size_text"
+        android:layout_below="@+id/size_text"
         android:text="32 cm" />
 
     <RadioButton

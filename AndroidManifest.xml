@@ -28,7 +28,7 @@
             android:label="@string/title_activity_shop_view" >
         </activity>
         <activity
-            android:name="de.openpizza.android.ProductView"
+            android:name="de.openpizza.android.views.ProductView"
             android:label="@string/title_activity_product_view" >
         </activity>
     </application>

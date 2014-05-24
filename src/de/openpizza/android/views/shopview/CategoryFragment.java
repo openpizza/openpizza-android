@@ -1,17 +1,21 @@
 package de.openpizza.android.views.shopview;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.openpizza.android.Category;
 import de.openpizza.android.Product;
 import de.openpizza.android.R;
+import de.openpizza.android.views.ProductView;
 
 @SuppressLint("NewApi")
 public class CategoryFragment extends Fragment {
@@ -44,6 +48,18 @@ public class CategoryFragment extends Fragment {
 				android.R.layout.simple_list_item_1, category.getProductList());
 		
 		productList.setAdapter(dataAdapter);
+		productList.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Product product = (Product) view.getTag();
+				// IntentSafe.getInstance().setData(bill.getId(), bill);
+				Intent intent = new Intent(getActivity(),
+						ProductView.class);
+				intent.putExtra("productId", product.getId());
+				startActivity(intent);
+			}
+		});
 		
 		return rootView;
 	}

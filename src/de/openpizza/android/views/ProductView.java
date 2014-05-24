@@ -1,5 +1,9 @@
-package de.openpizza.android;
+package de.openpizza.android.views;
 
+import de.openpizza.android.R;
+import de.openpizza.android.R.id;
+import de.openpizza.android.R.layout;
+import de.openpizza.android.R.menu;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
