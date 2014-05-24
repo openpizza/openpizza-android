@@ -10,10 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import de.openpizza.android.R;
 
-public abstract class ProductView extends ActionBarActivity {
+public class ProductView extends ActionBarActivity {
 
-	/** select the menuid **/
-	protected abstract int getMenuId();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +28,7 @@ public abstract class ProductView extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		int menuId = getMenuId();
-		getMenuInflater().inflate(menuId, menu);
+		getMenuInflater().inflate(R.menu.product_view, menu);
 		return true;
 	}
 
@@ -42,10 +39,19 @@ public abstract class ProductView extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.finish_edit_button) {
+			saveItem();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void saveItem() {
+		//TODO: add this product to the order
+		
+		// TODO: close this activity
+		finish();
+		
 	}
 
 	/**

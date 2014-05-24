@@ -12,5 +12,5 @@
     <string name="create_order">create order</string>
     <string name="finish_order">finish order</string>
     <string name="edit_order">edit order</string>
-
+    <string name="save_product">save product</string>
 </resources>

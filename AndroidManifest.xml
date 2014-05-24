@@ -37,11 +37,7 @@
             android:label="@string/title_activity_shop_view" >
         </activity>
         <activity
-            android:name="de.openpizza.android.views.antihost.ProductViewAntihost"
-            android:label="@string/title_activity_product_view" >
-        </activity>
-        <activity
-            android:name="de.openpizza.android.views.host.ProductViewHost"
+            android:name="de.openpizza.android.views.ProductView"
             android:label="@string/title_activity_product_view" >
         </activity>
         <activity

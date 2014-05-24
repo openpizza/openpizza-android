@@ -1,5 +1,9 @@
 package de.openpizza.android.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -18,27 +26,31 @@ import de.openpizza.android.service.OrderService;
 import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.OrderRequest;
 import de.openpizza.android.service.data.OrderResponse;
+import de.openpizza.android.service.data.Product;
+import de.openpizza.android.service.data.Shop;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
+import de.openpizza.android.views.host.ShopViewHost;
 
-public abstract class OrderActivity extends ActionBarActivity implements RESTServiceHandler<OrderResponse> {
+public abstract class OrderActivity extends ActionBarActivity implements
+		RESTServiceHandler<OrderResponse> {
 
 	private String nickname;
 	private RESTServiceCall<OrderRequest, OrderResponse> service;
 
 	protected abstract int getMenuId();
-	
+
 	@Override
 	public void handlePostResponse(OrderResponse response) {
 		Log.v("handlePostResponse", new Gson().toJson(response));
 		TextView link = (TextView) findViewById(R.id.link_text);
 		link.setText(response.getShort_link());
 	}
-	
+
 	@Override
 	public void handleGetResponse(OrderResponse response) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -56,6 +68,7 @@ public abstract class OrderActivity extends ActionBarActivity implements RESTSer
 		OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
 				"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
 		service.httpPost(request, this);
+
 	}
 
 	@Override
@@ -92,6 +105,28 @@ public abstract class OrderActivity extends ActionBarActivity implements RESTSer
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_order,
 					container, false);
+			rootView = setupListView(rootView);
+			return rootView;
+		}
+
+		private View setupListView(View rootView) {
+			ListView listView = (ListView) rootView
+					.findViewById(R.id.listView_shops);
+
+			final List<Product> products = new ArrayList<Product>();
+			ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, products) {
+				  @Override
+				  public View getView(int position, View convertView, ViewGroup parent) {
+				    View view = super.getView(position, convertView, parent);
+				    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+				    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+				    text1.setText(products.get(position).getName());
+				    text2.setText(products.get(position).getName());
+				    return view;
+				  }
+				};
+			listView.setAdapter(adapter);
 			return rootView;
 		}
 	}
