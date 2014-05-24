@@ -10,7 +10,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 
-import com.example.test.R;
+import de.openpizza.android.R;
 
 import de.flopska.android_rest.service.ContactsService;
 import de.flopska.android_rest.service.data.ContactsRequest;
