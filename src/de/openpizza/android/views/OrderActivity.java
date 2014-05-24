@@ -7,9 +7,13 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,10 +21,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import de.openpizza.android.R;
 import de.openpizza.android.service.OrderService;
@@ -46,6 +56,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		Log.v("handlePostResponse", new Gson().toJson(response));
 		TextView link = (TextView) findViewById(R.id.link_text);
 		link.setText(response.getShort_link());
+		setqr(response.getShort_link());
 	}
 
 	@Override
@@ -64,7 +75,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		activity = this;
-		nickname = "florian";
 		
 		
 
@@ -86,6 +96,52 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		           }
 		       }, 0, 60, TimeUnit.SECONDS); // execute every 60 seconds
 		
+		if (nickname == null) {
+			showGetNickDialog();
+		}
+		service = new OrderService(this);
+		OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
+				"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
+		service.httpPost(request, this);
+
+	}
+
+	private void showGetNickDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Enter nickname:");
+
+		// Set up the input
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_TEXT);
+		builder.setView(input);
+
+		// Set up the buttons
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				nickname = input.getText().toString();
+				setNickname(nickname);
+			}
+
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						finish();
+					}
+				});
+
+		builder.show();
+
+	}
+
+	private void setNickname(String nickname) {
+		this.nickname = nickname;
+		TextView nickname_view = (TextView) findViewById(R.id.nickname_text);
+		nickname_view.setText(nickname);
+
 	}
 
 	@Override
@@ -107,6 +163,37 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void setqr(String qrData) {
+		ImageView iv = (ImageView) findViewById(R.id.link_qr);
+		QRCodeWriter qrCodeEncoder = new QRCodeWriter();
+
+		try {
+			int colorBack = 0xFF000000;
+			int colorFront = 0xFFFFFFFF;
+			BitMatrix bitMatrix = qrCodeEncoder.encode(qrData,
+					BarcodeFormat.QR_CODE, 500, 500);
+			int width = bitMatrix.getWidth();
+			int height = bitMatrix.getHeight();
+			int[] pixels = new int[width * height];
+			for (int y = 0; y < height; y++) {
+				int offset = y * width;
+				for (int x = 0; x < width; x++) {
+
+					pixels[offset + x] = bitMatrix.get(x, y) ? colorBack
+							: colorFront;
+				}
+			}
+
+			Bitmap bitmap = Bitmap.createBitmap(width, height,
+					Bitmap.Config.ARGB_8888);
+			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+			iv.setImageBitmap(bitmap);
+		} catch (WriterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -131,18 +218,23 @@ public abstract class OrderActivity extends ActionBarActivity implements
 					.findViewById(R.id.order_list);
 
 			final List<Product> products = new ArrayList<Product>();
-			ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, products) {
-				  @Override
-				  public View getView(int position, View convertView, ViewGroup parent) {
-				    View view = super.getView(position, convertView, parent);
-				    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-				    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+			ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(
+					getActivity(), android.R.layout.simple_list_item_2,
+					android.R.id.text1, products) {
+				@Override
+				public View getView(int position, View convertView,
+						ViewGroup parent) {
+					View view = super.getView(position, convertView, parent);
+					TextView text1 = (TextView) view
+							.findViewById(android.R.id.text1);
+					TextView text2 = (TextView) view
+							.findViewById(android.R.id.text2);
 
-				    text1.setText(products.get(position).getName());
-				    text2.setText(products.get(position).getName());
-				    return view;
-				  }
-				};
+					text1.setText(products.get(position).getName());
+					text2.setText(products.get(position).getName());
+					return view;
+				}
+			};
 			listView.setAdapter(adapter);
 			return rootView;
 		}

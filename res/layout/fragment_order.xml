@@ -55,6 +55,14 @@
         android:text="12"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/nickname_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slash"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
     <ListView
         android:id="@+id/order_list"
         android:layout_width="match_parent"
@@ -62,7 +70,7 @@
         android:layout_above="@+id/link_qr"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/slash" >
+        android:layout_below="@+id/nickname_text" >
     </ListView>
 
     <TextView
@@ -71,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/link_qr"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -79,7 +87,7 @@
         android:id="@+id/link_qr"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_above="@+id/link_text"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/link_text"
+        android:layout_alignRight="@+id/order_list" />
 
 </RelativeLayout>
