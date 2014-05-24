@@ -1,0 +1,168 @@
+package de.openpizza.android.views;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import de.openpizza.android.R;
+
+public class ShopOverview extends ActionBarActivity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_shop_overview);
+
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.shop_overview, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_shop_overview,
+					container, false);
+			
+			rootView = setupCitySpinner(rootView);
+			
+			rootView = setupListView(rootView);
+			
+
+			return rootView;
+		}
+
+		private View setupListView(View rootView) {
+			ListView listView = (ListView) rootView.findViewById(R.id.listView_shops);
+			List<Shop> shopList = new ArrayList<Shop>();
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			shopList.add(new Shop());
+			ListAdapter listViewAdapter = new ShopListArrayAdapter(getActivity(), R.layout.fragment_shop_overview, shopList);
+			listView.setAdapter(listViewAdapter);
+			return rootView;
+		}
+
+		private View setupCitySpinner(View rootView) {
+			Spinner citySpinner = (Spinner) rootView.findViewById(R.id.spinner_select_city);
+			List<City> list = new ArrayList<City>();
+			list.add(new City("1"));
+			list.add(new City("2"));
+			list.add(new City("3"));
+			ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(this.getActivity(),
+					android.R.layout.simple_spinner_dropdown_item, list);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			citySpinner.setAdapter(dataAdapter);
+			citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+		        @Override
+		        public void onItemSelected(AdapterView<?> arg0, View arg1,
+		                int arg2, long arg3) {
+		        	// TODO: Add load shops here
+		        	Log.d("item", ((City) arg0.getAdapter().getItem(arg2)).id);
+		        }
+
+		        @Override
+		        public void onNothingSelected(AdapterView<?> arg0) {
+		            // TODO Auto-generated method stub
+
+		        }       
+
+		    });
+			return rootView;
+		}
+	}
+	
+
+}
+
+
+class ShopListArrayAdapter extends ArrayAdapter<Shop> {
+
+	private List<Shop> shopList;
+
+	public ShopListArrayAdapter(Context context, int resource, List<Shop> shopList) {
+		super(context, resource, shopList);
+		this.shopList = shopList;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		Shop shop = shopList.get(position);
+		View row = convertView;
+		LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		row = vi.inflate(R.layout.list_item_shop_list, null);
+		row.setTag(shop);
+		ImageView shopImage = (ImageView) row
+				.findViewById(R.id.shop_image);
+		
+		TextView name = (TextView) row.findViewById(R.id.shop_name);
+		name.setText(shop.getName());
+
+		return row;
+	}
+	
+}
+class City {
+	String name = "test";
+	String id ;
+	
+	public City(String id) {
+		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return name;
+	}
+}
