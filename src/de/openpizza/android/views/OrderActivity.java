@@ -83,7 +83,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		nickname_view = (TextView) findViewById(R.id.nickname_text);
-
 	}
 
 	protected void showGetNickDialog() {
@@ -117,6 +116,12 @@ public abstract class OrderActivity extends ActionBarActivity implements
 
 	}
 
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+		OrderFacade.setNickname(nickname);
+		nickname_view.setText("test");
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -167,14 +172,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public void setNickname(String nickname2) {
-		nickname = nickname2;
-		OrderFacade.setNickname(nickname);
-		nickname_view = (TextView) this.findViewById(R.id.nickname_text);
-		nickname_view.setText("test");
-
 	}
 
 	/**
