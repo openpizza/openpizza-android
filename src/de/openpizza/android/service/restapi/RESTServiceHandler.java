@@ -1,4 +1,4 @@
-package de.flopska.android_rest.service.restapi;
+package de.openpizza.android.service.restapi;
 
 /**
  * Callback Interface um ankommende Daten zu verarbeiten

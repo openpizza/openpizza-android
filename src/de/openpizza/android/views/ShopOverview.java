@@ -18,13 +18,23 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import de.openpizza.android.R;
 
-public class ShopOverview extends ActionBarActivity {
+import com.google.gson.Gson;
+
+import de.openpizza.android.R;
+import de.openpizza.android.service.ShopsService;
+import de.openpizza.android.service.data.Shop;
+import de.openpizza.android.service.restapi.RESTServiceCall;
+import de.openpizza.android.service.restapi.RESTServiceHandler;
+
+	public class ShopOverview extends ActionBarActivity implements
+			RESTServiceHandler<List<Shop>> {
+
+	private RESTServiceCall<Void, List<Shop>> service;
+	private PlaceholderFragment shopListFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +42,13 @@ public class ShopOverview extends ActionBarActivity {
 		setContentView(R.layout.activity_shop_overview);
 
 		if (savedInstanceState == null) {
+			shopListFragment = new PlaceholderFragment();
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, shopListFragment).commit();
 		}
+
+		service = new ShopsService(this);
+		service.httpGet("shops", "", this);
 	}
 
 	@Override
@@ -62,6 +76,8 @@ public class ShopOverview extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends Fragment {
 
+		private ShopListArrayAdapter listViewAdapter;
+
 		public PlaceholderFragment() {
 		}
 
@@ -70,28 +86,25 @@ public class ShopOverview extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_shop_overview,
 					container, false);
-			
+
 			rootView = setupCitySpinner(rootView);
-			
+
 			rootView = setupListView(rootView);
-			
 
 			return rootView;
 		}
+		
+		public void setData(List<Shop> data) {
+			listViewAdapter.setShopList(data);
+		}
 
 		private View setupListView(View rootView) {
-			ListView listView = (ListView) rootView.findViewById(R.id.listView_shops);
+			ListView listView = (ListView) rootView
+					.findViewById(R.id.listView_shops);
+
 			List<Shop> shopList = new ArrayList<Shop>();
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			shopList.add(new Shop());
-			ListAdapter listViewAdapter = new ShopListArrayAdapter(getActivity(), R.layout.fragment_shop_overview, shopList);
+			listViewAdapter = new ShopListArrayAdapter(
+					getActivity(), R.layout.fragment_shop_overview, shopList);
 			listView.setAdapter(listViewAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -109,72 +122,105 @@ public class ShopOverview extends ActionBarActivity {
 		}
 
 		private View setupCitySpinner(View rootView) {
-			Spinner citySpinner = (Spinner) rootView.findViewById(R.id.spinner_select_city);
+			Spinner citySpinner = (Spinner) rootView
+					.findViewById(R.id.spinner_select_city);
 			List<City> list = new ArrayList<City>();
 			list.add(new City("1"));
 			list.add(new City("2"));
 			list.add(new City("3"));
-			ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(this.getActivity(),
+			ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(
+					this.getActivity(),
 					android.R.layout.simple_spinner_dropdown_item, list);
-			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			dataAdapter
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			citySpinner.setAdapter(dataAdapter);
-			citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			citySpinner
+					.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-		        @Override
-		        public void onItemSelected(AdapterView<?> arg0, View arg1,
-		                int arg2, long arg3) {
-		        	// TODO: Add load shops here
-		        	Log.d("item", ((City) arg0.getAdapter().getItem(arg2)).id);
-		        }
+						@Override
+						public void onItemSelected(AdapterView<?> arg0,
+								View arg1, int arg2, long arg3) {
+							// TODO: Add load shops here
+							Log.d("item",
+									((City) arg0.getAdapter().getItem(arg2)).id);
+						}
 
-		        @Override
-		        public void onNothingSelected(AdapterView<?> arg0) {
-		            // TODO Auto-generated method stub
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) {
+							// TODO Auto-generated method stub
 
-		        }       
+						}
 
-		    });
+					});
 			return rootView;
 		}
 	}
-	
+
+	@Override
+	public void handleGetResponse(List<Shop> response) {
+		Log.v("Daten sind angekommen", new Gson().toJson(response));
+		shopListFragment.setData(response);
+	}
+
+	@Override
+	public void handlePostResponse(List<Shop> response) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
-
 
 class ShopListArrayAdapter extends ArrayAdapter<Shop> {
 
 	private List<Shop> shopList;
 
-	public ShopListArrayAdapter(Context context, int resource, List<Shop> shopList) {
+	public ShopListArrayAdapter(Context context, int resource,
+			List<Shop> shopList) {
 		super(context, resource, shopList);
-		this.shopList = shopList;
+		this.setShopList(shopList);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Shop shop = shopList.get(position);
+		Shop shop = getShopList().get(position);
 		View row = convertView;
-		LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater vi = (LayoutInflater) getContext().getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE);
 		row = vi.inflate(R.layout.list_item_shop_list, null);
 		row.setTag(shop);
-		ImageView shopImage = (ImageView) row
-				.findViewById(R.id.shop_image);
-		
+		ImageView shopImage = (ImageView) row.findViewById(R.id.shop_image);
+
 		TextView name = (TextView) row.findViewById(R.id.shop_name);
 		name.setText(shop.getName());
-
 		return row;
 	}
-	
+
+
+
+	public List<Shop> getShopList() {
+		return shopList;
+	}
+
+
+
+	public void setShopList(List<Shop> shopList) {
+		clear();
+		this.shopList = shopList;
+		addAll(shopList);
+		notifyDataSetChanged();
+		Log.v("setShoplist()", "NotifyDataSetChanged()");
+	}
+
 }
+
 class City {
 	String name = "test";
-	String id ;
-	
+	String id;
+
 	public City(String id) {
 		this.id = id;
 	}
+
 	@Override
 	public String toString() {
 		return name;
