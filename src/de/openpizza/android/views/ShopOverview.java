@@ -77,6 +77,35 @@ import de.openpizza.android.views.host.ShopViewHost;
 	 */
 	public static class PlaceholderFragment extends Fragment {
 
+		private final class OnItemSelectedListenerImplementation implements
+				AdapterView.OnItemSelectedListener, RESTServiceHandler<List<Shop>> {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0,
+					View arg1, int arg2, long arg3) {
+				RESTServiceCall<Void, List<Shop>> service = new ShopsService(getActivity());
+				service.httpGet("shops", "postcode=" + ((City) arg0.getAdapter().getItem(arg2)).name, this);
+				Log.d("item",
+						((City) arg0.getAdapter().getItem(arg2)).id);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void handleGetResponse(List<Shop> response) {
+				 setData(response);
+			}
+
+			@Override
+			public void handlePostResponse(List<Shop> response) {
+				// TODO Auto-generated method stub
+				
+			}
+		}
+
 		private ShopListArrayAdapter listViewAdapter;
 
 		public PlaceholderFragment() {
@@ -130,9 +159,9 @@ import de.openpizza.android.views.host.ShopViewHost;
 			Spinner citySpinner = (Spinner) rootView
 					.findViewById(R.id.spinner_select_city);
 			List<City> list = new ArrayList<City>();
-			list.add(new City("1"));
-			list.add(new City("2"));
-			list.add(new City("3"));
+			list.add(new City("1", "Karlsruhe"));
+			list.add(new City("2", "München"));
+			list.add(new City("3", "Berlin"));
 			ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(
 					this.getActivity(),
 					android.R.layout.simple_spinner_dropdown_item, list);
@@ -140,23 +169,7 @@ import de.openpizza.android.views.host.ShopViewHost;
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			citySpinner.setAdapter(dataAdapter);
 			citySpinner
-					.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-						@Override
-						public void onItemSelected(AdapterView<?> arg0,
-								View arg1, int arg2, long arg3) {
-							// TODO: Add load shops here
-							Log.d("item",
-									((City) arg0.getAdapter().getItem(arg2)).id);
-						}
-
-						@Override
-						public void onNothingSelected(AdapterView<?> arg0) {
-							// TODO Auto-generated method stub
-
-						}
-
-					});
+					.setOnItemSelectedListener(new OnItemSelectedListenerImplementation());
 			return rootView;
 		}
 	}
@@ -218,11 +231,12 @@ class ShopListArrayAdapter extends ArrayAdapter<Shop> {
 }
 
 class City {
-	String name = "test";
+	String name;
 	String id;
 
-	public City(String id) {
+	public City(String id, String name) {
 		this.id = id;
+		this.name = name;
 	}
 
 	@Override

@@ -1,9 +1,13 @@
 package de.openpizza.android.service;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import de.openpizza.android.service.data.OrderContentRequest;
 import de.openpizza.android.service.data.OrderContentResponse;
@@ -11,8 +15,8 @@ import de.openpizza.android.service.restapi.RESTService;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 
-public class OrderContentService extends RESTService<OrderContentResponse> implements
-		RESTServiceCall<OrderContentRequest, OrderContentResponse> {
+public class OrderContentService extends RESTService<List<OrderContentResponse>>
+		implements RESTServiceCall<OrderContentRequest, List<OrderContentResponse>> {
 	Gson gson;
 
 	public OrderContentService(Activity activity) {
@@ -22,7 +26,7 @@ public class OrderContentService extends RESTService<OrderContentResponse> imple
 
 	@Override
 	public void httpGet(String url, String params,
-			RESTServiceHandler<OrderContentResponse> handler) {
+			RESTServiceHandler<List<OrderContentResponse>> handler) {
 		new GetTask(url, params, handler).execute();
 	}
 
@@ -31,7 +35,7 @@ public class OrderContentService extends RESTService<OrderContentResponse> imple
 		private String httpParams;
 
 		public GetTask(String url, String params,
-				RESTServiceHandler<OrderContentResponse> handler) {
+				RESTServiceHandler<List<OrderContentResponse>> handler) {
 			this.url = url;
 			this.httpParams = params;
 			serviceHandler = handler;
@@ -51,23 +55,37 @@ public class OrderContentService extends RESTService<OrderContentResponse> imple
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-			serviceHandler.handleGetResponse(gson.fromJson(result,
-					OrderContentResponse.class));
+			Type listType = new TypeToken<List<OrderContentResponse>>() {}.getType();
+			serviceHandler.handleGetResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
+		
+			
 		}
+	}
+
+	private String id = "0";
+	private String nickname = "none";
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
 	public void httpPost(OrderContentRequest data,
-			RESTServiceHandler<OrderContentResponse> handler) {
+			RESTServiceHandler<List<OrderContentResponse>> handler) {
 		String json = gson.toJson(data);
-		new PostTask(handler, 1, "florian").execute(json);
+		new PostTask(handler, id, nickname).execute(json);
 	}
 
 	private class PostTask extends AsyncTask<String, Void, String> {
-		private int id;
+		private String id;
 		private String nickname;
-		
-		public PostTask(RESTServiceHandler<OrderContentResponse> handler, int id, String nickname) {
+
+		public PostTask(RESTServiceHandler<List<OrderContentResponse>> handler,
+				String id, String nickname) {
 			serviceHandler = handler;
 			this.id = id;
 			this.nickname = nickname;
@@ -87,8 +105,8 @@ public class OrderContentService extends RESTService<OrderContentResponse> imple
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-			serviceHandler.handlePostResponse(gson.fromJson(result,
-					OrderContentResponse.class));
+			Type listType = new TypeToken<List<OrderContentResponse>>() {}.getType();
+			serviceHandler.handlePostResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
 		}
 
 	}
