@@ -5,13 +5,14 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
-import de.openpizza.android.service.data.Order;
+import de.openpizza.android.service.data.OrderRequest;
+import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.restapi.RESTService;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 
-public class OrderService extends RESTService<Order> implements
-		RESTServiceCall<Void, Order> {
+public class OrderService extends RESTService<OrderResponse> implements
+		RESTServiceCall<OrderRequest, OrderResponse> {
 	Gson gson;
 
 	public OrderService(Activity activity) {
@@ -21,7 +22,7 @@ public class OrderService extends RESTService<Order> implements
 
 	@Override
 	public void httpGet(String url, String params,
-			RESTServiceHandler<Order> handler) {
+			RESTServiceHandler<OrderResponse> handler) {
 		new GetTask(url, params, handler).execute();
 	}
 
@@ -30,7 +31,7 @@ public class OrderService extends RESTService<Order> implements
 		private String httpParams;
 
 		public GetTask(String url, String params,
-				RESTServiceHandler<Order> handler) {
+				RESTServiceHandler<OrderResponse> handler) {
 			this.url = url;
 			this.httpParams = params;
 			serviceHandler = handler;
@@ -50,19 +51,21 @@ public class OrderService extends RESTService<Order> implements
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-			serviceHandler
-					.handleGetResponse(gson.fromJson(result, Order.class));
+			serviceHandler.handleGetResponse(gson.fromJson(result,
+					OrderResponse.class));
 		}
 	}
 
 	@Override
-	public void httpPost(Void data, RESTServiceHandler<Order> handler) {
-		new PostTask(handler).execute();
+	public void httpPost(OrderRequest data,
+			RESTServiceHandler<OrderResponse> handler) {
+		String json = gson.toJson(data);
+		new PostTask(handler).execute(json);
 	}
 
 	private class PostTask extends AsyncTask<String, Void, String> {
 
-		public PostTask(RESTServiceHandler<Order> handler) {
+		public PostTask(RESTServiceHandler<OrderResponse> handler) {
 			serviceHandler = handler;
 		}
 
@@ -74,14 +77,14 @@ public class OrderService extends RESTService<Order> implements
 
 		@Override
 		protected String doInBackground(String... params) {
-			return postData("orders", "");
+			return postData("orders", params[0]);
 		}
 
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-			serviceHandler.handlePostResponse(gson
-					.fromJson(result, Order.class));
+			serviceHandler.handlePostResponse(gson.fromJson(result,
+					OrderResponse.class));
 		}
 
 	}

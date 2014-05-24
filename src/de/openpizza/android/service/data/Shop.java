@@ -1,13 +1,10 @@
 package de.openpizza.android.service.data;
+
+import java.util.List;
+
 /**
- * {
-        id: int,
-        name: string,
-        address: string,
-        postcode: string,
-        city: string,
-    }
- *
+ * { id: int, name: string, address: string, postcode: string, city: string, }
+ * 
  */
 public class Shop {
 	private int id;
@@ -15,19 +12,29 @@ public class Shop {
 	private String address;
 	private String postcode;
 	private String city;
-	
+	private List<String> product_categories;
+
 	public Shop() {
 		// Empty constructor needed for gson
 	}
 
 	public Shop(int id, String name, String address, String postcode,
-			String city) {
+			String city, List<String> product_categories) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.postcode = postcode;
 		this.city = city;
+		this.product_categories = product_categories;
+	}
+
+	public List<String> getProduct_categories() {
+		return product_categories;
+	}
+
+	public void setProduct_categories(List<String> product_categories) {
+		this.product_categories = product_categories;
 	}
 
 	public int getId() {
@@ -69,5 +76,5 @@ public class Shop {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 }
