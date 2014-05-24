@@ -88,7 +88,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 						@Override
 						public void run() {
 							 OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
-										"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
+										"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"), "");
 								service.httpPost(request, thisActivity);
 						}
 					});

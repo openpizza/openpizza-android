@@ -18,8 +18,8 @@ package de.openpizza.android.service.data;
 public class OrderResponse {
 	private String id;
 	private String short_link;
-	private int estimated_participants;
 	private String host;
+	private int estimated_participants;
 	private int shop;
 	private DeliveryAddress delivery_address;
 	
