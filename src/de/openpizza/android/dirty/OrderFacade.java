@@ -1,7 +1,10 @@
 package de.openpizza.android.dirty;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
+import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.Product;
 
 public class OrderFacade {
@@ -38,6 +41,23 @@ public class OrderFacade {
 	public static void setNickname(String nickname) {
 		INSTANCE.setNickname(nickname);
 	}
+
+	public static int getOrderMemberCount() {
+		return INSTANCE.getProductFormOthers().size();
+	}
 	
+	public static List<OrderContentResponse> getProductFormOthers() {
+		return INSTANCE.getProductFormOthers();
+	}
+
+	public static String getLink() {
+		return INSTANCE.getLink();
+	}
+
+	public static void get(String id,Activity context) {
+		INSTANCE = new Order(context);
+		INSTANCE.get(id);
+	}
+
 
 }

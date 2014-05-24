@@ -32,6 +32,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.ModelChangedListener;
 import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
@@ -47,16 +48,91 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	public void onModelChanged() {
 		setProductList();
 		setMember();
+		setLinks();
+	}
+
+	private void setLinks() {
+
+		String str_link = OrderFacade.getLink();
+		TextView link = (TextView) findViewById(R.id.link_text);
+		link.setText(str_link);
+		setqr(str_link);
+
 	}
 
 	private void setMember() {
-		// TODO Auto-generated method stub
-		
+		TextView memberReady = (TextView) findViewById(R.id.finish_member);
+		memberReady.setText(OrderFacade.getOrderMemberCount() + "");
+	}
+
+	private void setqr(String qrData) {
+		ImageView iv = (ImageView) findViewById(R.id.link_qr);
+		QRCodeWriter qrCodeEncoder = new QRCodeWriter();
+
+		try {
+			int colorBack = 0xFF000000;
+			int colorFront = 0xFFFFFFFF;
+			BitMatrix bitMatrix = qrCodeEncoder.encode(qrData,
+					BarcodeFormat.QR_CODE, 500, 500);
+			int width = bitMatrix.getWidth();
+			int height = bitMatrix.getHeight();
+			int[] pixels = new int[width * height];
+			for (int y = 0; y < height; y++) {
+				int offset = y * width;
+				for (int x = 0; x < width; x++) {
+
+					pixels[offset + x] = bitMatrix.get(x, y) ? colorBack
+							: colorFront;
+				}
+			}
+
+			Bitmap bitmap = Bitmap.createBitmap(width, height,
+					Bitmap.Config.ARGB_8888);
+			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+			iv.setImageBitmap(bitmap);
+		} catch (WriterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void setupListView(final List<Product> products) {
+		ListView listView = (ListView) findViewById(R.id.order_list);
+
+		ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(
+				getApplicationContext(), android.R.layout.simple_list_item_2,
+				android.R.id.text1, products) {
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				View view = super.getView(position, convertView, parent);
+				TextView text1 = (TextView) view
+						.findViewById(android.R.id.text1);
+				TextView text2 = (TextView) view
+						.findViewById(android.R.id.text2);
+
+				text1.setText(products.get(position).getName());
+				text2.setText(products.get(position).getNickname());
+				return view;
+			}
+		};
+		listView.setAdapter(adapter);
 	}
 
 	private void setProductList() {
-		// TODO Auto-generated method stub
-		
+
+		List<OrderContentResponse> productFormOthers = OrderFacade
+				.getProductFormOthers();
+		List<Product> list = new ArrayList<Product>();
+
+		for (OrderContentResponse cr : productFormOthers) {
+			for (Product p : cr.getProducts()) {
+				Log.d("test", cr.getNickname());
+				p.setNickname(cr.getNickname());
+				list.add(p);
+			}
+		}
+
+		setupListView(list);
 	}
 
 	protected abstract int getMenuId();
@@ -64,9 +140,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	@Override
 	public void handlePostResponse(OrderResponse response) {
 		Log.v("handlePostResponse", new Gson().toJson(response));
-		TextView link = (TextView) findViewById(R.id.link_text);
-		link.setText(response.getShort_link());
-		setqr(response.getShort_link());
 	}
 
 	@Override
@@ -117,12 +190,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-		OrderFacade.setNickname(nickname);
-		nickname_view = (TextView) findViewById(R.id.nickname_text);
-		nickname_view.setText("test");
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,35 +212,12 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void setqr(String qrData) {
-		ImageView iv = (ImageView) findViewById(R.id.link_qr);
-		QRCodeWriter qrCodeEncoder = new QRCodeWriter();
+	public void setNickname(String nickname2) {
+		nickname = nickname2;
+		OrderFacade.setNickname(nickname);
+		nickname_view = (TextView) this.findViewById(R.id.nickname_text);
+		nickname_view.setText(nickname2);
 
-		try {
-			int colorBack = 0xFF000000;
-			int colorFront = 0xFFFFFFFF;
-			BitMatrix bitMatrix = qrCodeEncoder.encode(qrData,
-					BarcodeFormat.QR_CODE, 500, 500);
-			int width = bitMatrix.getWidth();
-			int height = bitMatrix.getHeight();
-			int[] pixels = new int[width * height];
-			for (int y = 0; y < height; y++) {
-				int offset = y * width;
-				for (int x = 0; x < width; x++) {
-
-					pixels[offset + x] = bitMatrix.get(x, y) ? colorBack
-							: colorFront;
-				}
-			}
-
-			Bitmap bitmap = Bitmap.createBitmap(width, height,
-					Bitmap.Config.ARGB_8888);
-			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-			iv.setImageBitmap(bitmap);
-		} catch (WriterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -189,35 +233,9 @@ public abstract class OrderActivity extends ActionBarActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_order,
 					container, false);
-			rootView = setupListView(rootView);
 			return rootView;
 		}
 
-		private View setupListView(View rootView) {
-			ListView listView = (ListView) rootView
-					.findViewById(R.id.order_list);
-
-			final List<Product> products = new ArrayList<Product>();
-			ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(
-					getActivity(), android.R.layout.simple_list_item_2,
-					android.R.id.text1, products) {
-				@Override
-				public View getView(int position, View convertView,
-						ViewGroup parent) {
-					View view = super.getView(position, convertView, parent);
-					TextView text1 = (TextView) view
-							.findViewById(android.R.id.text1);
-					TextView text2 = (TextView) view
-							.findViewById(android.R.id.text2);
-
-					text1.setText(products.get(position).getName());
-					text2.setText(products.get(position).getName());
-					return view;
-				}
-			};
-			listView.setAdapter(adapter);
-			return rootView;
-		}
 	}
 
 }

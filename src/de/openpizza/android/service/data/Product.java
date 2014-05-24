@@ -6,6 +6,7 @@ public class Product {
 	private String category;
 	private int quantity;
 	private double price;
+	private String nickname;
 	
 	public Product() {
 		// empty constructor for gson
@@ -64,5 +65,14 @@ public class Product {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+		
+	}
+
+	public String getNickname() {
+		return nickname;
 	}
 }

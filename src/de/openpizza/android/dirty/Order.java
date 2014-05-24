@@ -21,7 +21,7 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 	private String nickname;
 	private int shopid;
 	private Activity context;
-	List<OrderContentResponse> productFormOthers = new ArrayList<OrderContentResponse>();
+	private List<OrderContentResponse> productFormOthers = new ArrayList<OrderContentResponse>();
 	private List<ModelChangedListener> changedListeners = new ArrayList<ModelChangedListener>();
 	private String host;
 	private String shortlink;
@@ -34,6 +34,10 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 	public Order(int shopid, Activity context) {
 		this.context = context;
 		this.shopid = shopid;
+	}
+
+	public Order(Activity context2) {
+		this.context = context2;
 	}
 
 	public String getNickname() {
@@ -71,7 +75,8 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 		}
 
 		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-		final OrderContentService service = new OrderContentService((Activity) context);
+		final OrderContentService service = new OrderContentService(
+				(Activity) context);
 		final Order order = this;
 		exec.scheduleAtFixedRate(new Runnable() {
 			public void run() {
@@ -94,6 +99,11 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 	@Override
 	public void handleGetResponse(OrderResponse response) {
+		this.host = response.getHost();
+		this.shopid = response.getShop();
+		this.shortlink = response.getShort_link();
+		this.id = response.getId();
+		fireModelChanged();
 	}
 
 	private void fireModelChanged() {
@@ -110,6 +120,16 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 		this.shopid = response.getShop();
 		this.shortlink = response.getShort_link();
 		this.id = response.getId();
+		fireModelChanged();
+	}
+
+	public List<OrderContentResponse> getProductFormOthers() {
+		return productFormOthers;
+	}
+
+	public void setProductFormOthers(
+			List<OrderContentResponse> productFormOthers) {
+		this.productFormOthers = productFormOthers;
 		fireModelChanged();
 	}
 
@@ -132,15 +152,25 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 		@Override
 		public void handleGetResponse(List<OrderContentResponse> response) {
-
+			setProductFormOthers(response);
+			fireModelChanged();
 		}
 
 		@Override
 		public void handlePostResponse(List<OrderContentResponse> response) {
 
-			productFormOthers = response;
-
 		}
 
+	}
+
+	public String getLink() {
+		return this.shortlink;
+	}
+
+	public void get(String id2) {
+		OrderService os = new OrderService(context);
+		os.httpGet("orders/"+id2, "", this);
+
+		
 	}
 }
