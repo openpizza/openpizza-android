@@ -4,16 +4,18 @@ public class Product {
 	private int id;
 	private String name;
 	private String category;
+	private double price;
 	
 	public Product() {
 		// empty constructor for gson
 	}
 
-	public Product(int id, String name, String category) {
+	public Product(int id, String name, String category, double price) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.category = category;
+		this.price = price;
 	}
 
 	public int getId() {
@@ -38,6 +40,14 @@ public class Product {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 }
