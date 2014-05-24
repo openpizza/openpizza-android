@@ -29,6 +29,7 @@ import de.openpizza.android.service.ShopsService;
 import de.openpizza.android.service.data.Shop;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
+import de.openpizza.android.views.host.ShopViewHost;
 
 	public class ShopOverview extends ActionBarActivity implements
 			RESTServiceHandler<List<Shop>> {
@@ -111,10 +112,13 @@ import de.openpizza.android.service.restapi.RESTServiceHandler;
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					Shop shop = (Shop) view.getTag();
+					openShopView(shop);
+				}
+
+				private void openShopView(Shop shop) {
 					// IntentSafe.getInstance().setData(bill.getId(), bill);
 					Intent intent = new Intent(getActivity(),
-							ShopView.class);
-					intent.putExtra("shopId", shop.getId());
+							ShopViewHost.class);
 					startActivity(intent);
 				}
 			});

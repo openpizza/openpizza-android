@@ -1,21 +1,19 @@
 package de.openpizza.android.views;
 
-import de.openpizza.android.R;
-import de.openpizza.android.R.id;
-import de.openpizza.android.R.layout;
-import de.openpizza.android.R.menu;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import de.openpizza.android.R;
 
-public class ProductView extends ActionBarActivity {
+public abstract class ProductView extends ActionBarActivity {
+
+	/** select the menuid **/
+	protected abstract int getMenuId();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +30,11 @@ public class ProductView extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.product_view, menu);
+		int menuId = getMenuId();
+		getMenuInflater().inflate(menuId, menu);
 		return true;
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

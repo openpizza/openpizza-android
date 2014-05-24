@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class OrderActivity extends ActionBarActivity {
+public abstract class OrderActivity extends ActionBarActivity {
+
+	protected abstract int getMenuId();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +33,12 @@ public class OrderActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
+		int menuId = getMenuId();
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.order, menu);
+		getMenuInflater().inflate(menuId, menu);
 		return true;
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

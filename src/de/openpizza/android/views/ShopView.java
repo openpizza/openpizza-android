@@ -15,11 +15,17 @@ import de.openpizza.android.Category;
 import de.openpizza.android.R;
 import de.openpizza.android.views.shopview.ShopViewTabsPagerAdapter;
 
-public class ShopView extends FragmentActivity implements ActionBar.TabListener {
+public abstract class ShopView extends FragmentActivity implements ActionBar.TabListener {
 
 	private ViewPager viewPager;
 	private ShopViewTabsPagerAdapter mAdapter;
 
+
+	/** give the Menu to load**/
+	protected abstract int getMenuId();
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,22 +47,14 @@ public class ShopView extends FragmentActivity implements ActionBar.TabListener 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
+		int menuId = getMenuId();
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.shop_view, menu);
+		getMenuInflater().inflate(menuId, menu);
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+
+	
 
 
 	@Override

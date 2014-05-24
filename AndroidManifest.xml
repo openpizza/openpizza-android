@@ -25,7 +25,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.openpizza.android.views.ShopView"
+            android:name="de.openpizza.android.views.antihost.ShopViewAntihost"
+            android:label="@string/title_activity_shop_view" >
+        </activity>
+        <activity
+            android:name="de.openpizza.android.views.host.ShopViewHost"
             android:label="@string/title_activity_shop_view" >
         </activity>
         <activity
