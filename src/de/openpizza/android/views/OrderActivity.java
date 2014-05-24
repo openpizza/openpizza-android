@@ -92,7 +92,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		nickname_view = (TextView) findViewById(R.id.nickname_text);
-
 	}
 
 	protected void showGetNickDialog() {
