@@ -2,8 +2,11 @@ package de.openpizza.android.views;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -13,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,16 +28,16 @@ import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.OrderRequest;
 import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
-import de.openpizza.android.service.data.Shop;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
-import de.openpizza.android.views.host.ShopViewHost;
 
 public abstract class OrderActivity extends ActionBarActivity implements
 		RESTServiceHandler<OrderResponse> {
 
+	private Activity activity;
 	private String nickname;
 	private RESTServiceCall<OrderRequest, OrderResponse> service;
+	Timer t;
 
 	protected abstract int getMenuId();
 
@@ -62,13 +63,29 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-
+		activity = this;
 		nickname = "florian";
-		service = new OrderService(this);
-		OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
-				"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
-		service.httpPost(request, this);
+		
+		
 
+		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+		final OrderActivity thisActivity = this;
+		service = new OrderService(thisActivity);
+		exec.scheduleAtFixedRate(new Runnable() {
+		           public void run() {
+		        	   runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							 OrderRequest request = new OrderRequest(2, 1, new DeliveryAddress(
+										"KIT", "Am Fasanengarten 5", "67676", "Karlsruhe"));
+								service.httpPost(request, thisActivity);
+						}
+					});
+		        	  
+		           }
+		       }, 0, 60, TimeUnit.SECONDS); // execute every 60 seconds
+		
 	}
 
 	@Override
@@ -111,7 +128,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 
 		private View setupListView(View rootView) {
 			ListView listView = (ListView) rootView
-					.findViewById(R.id.listView_shops);
+					.findViewById(R.id.order_list);
 
 			final List<Product> products = new ArrayList<Product>();
 			ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, products) {
