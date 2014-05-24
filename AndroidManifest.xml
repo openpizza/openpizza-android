@@ -46,7 +46,7 @@
         </activity>
           <activity
             android:name="de.openpizza.android.views.host.OrderActivityHost"
-            android:label="@string/title_activity_order" >
+            android:label="@string/title_activity_shop_view" >
         </activity>
         <activity
             android:name="de.openpizza.android.views.LoginActivity"
