@@ -73,7 +73,7 @@ public abstract class RESTService<T> {
 	public String postData(String identifier, String data) {
 		// Create a new HttpClient and Post Header
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost("http://192.168.1.15:8080/whatscash/"
+		HttpPost httpPost = new HttpPost("http://openpizza.apiary-mock.com/"
 				+ identifier);
 
 		try {
