@@ -3,10 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.openpizza.android.OrderActivity" >
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+   <item
+        android:id="@+id/edit_order_button"
+        android:icon="@drawable/ic_action_edit"
+        android:showAsAction="ifRoom"
+        android:visible="true"
+        android:title="@string/edit_order"/>
+  <!--   <item
+        android:id="@+id/finish_order_button"
+        android:icon="@drawable/ic_action_accept"
+        android:showAsAction="ifRoom"
+        android:visible="true"
+        android:title="@string/finish_order"/>
+        -->
 
 </menu>

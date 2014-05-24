@@ -16,6 +16,7 @@ import de.openpizza.android.Category;
 import de.openpizza.android.R;
 import de.openpizza.android.service.data.Product;
 import de.openpizza.android.views.ProductView;
+import de.openpizza.android.views.host.ProductViewHost;
 
 @SuppressLint("NewApi")
 public class CategoryFragment extends Fragment {
@@ -52,10 +53,10 @@ public class CategoryFragment extends Fragment {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Product product = (Product) view.getTag();
+				Product product = (Product) category.getProducts().get(position);
 				// IntentSafe.getInstance().setData(bill.getId(), bill);
 				Intent intent = new Intent(getActivity(),
-						ProductView.class);
+						ProductViewHost.class);
 				intent.putExtra("productId", product.getId());
 				startActivity(intent);
 			}

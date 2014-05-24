@@ -10,5 +10,7 @@
     <string name="title_activity_order">OrderActivity</string>
     <string name="title_activity_send_order">Send Order</string>
     <string name="create_order">create order</string>
+    <string name="finish_order">finish order</string>
+    <string name="edit_order">edit order</string>
 
 </resources>

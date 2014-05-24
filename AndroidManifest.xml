@@ -33,11 +33,19 @@
             android:label="@string/title_activity_shop_view" >
         </activity>
         <activity
-            android:name="de.openpizza.android.views.ProductView"
+            android:name="de.openpizza.android.views.antihost.ProductViewAntihost"
+            android:label="@string/title_activity_product_view" >
+        </activity>
+         <activity
+            android:name="de.openpizza.android.views.host.ProductViewHost"
             android:label="@string/title_activity_product_view" >
         </activity>
         <activity
-            android:name="de.openpizza.android.views.OrderActivity"
+            android:name="de.openpizza.android.views.antihost.OrderActivityAntihost"
+            android:label="@string/title_activity_order" >
+        </activity>
+          <activity
+            android:name="de.openpizza.android.views.host.OrderActivityHost"
             android:label="@string/title_activity_order" >
         </activity>
         <activity
