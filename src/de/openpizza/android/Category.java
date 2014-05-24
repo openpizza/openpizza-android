@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
+	private String name;
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return "testCAt";
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Category(String name) {
+		super();
+		this.name = name;
 	}
 
 	public List<Product> getProductList() {
