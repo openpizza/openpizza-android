@@ -60,7 +60,6 @@ public class OrderActivityHost extends OrderActivity {
 	public void setNickname(String nickname) {
 		super.setNickname(nickname);
 		OrderFacade.publish();
-		OrderFacade.sentProducts();
 
 	}
 }

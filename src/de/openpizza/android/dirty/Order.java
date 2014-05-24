@@ -6,10 +6,10 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
-import android.content.Context;
+import de.openpizza.android.service.OrderContentService;
 import de.openpizza.android.service.OrderService;
-import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.OrderContentRequest;
+import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.OrderRequest;
 import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
@@ -21,6 +21,7 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 	private String nickname;
 	private int shopid;
 	private Activity context;
+	List<OrderContentResponse> productFormOthers = new ArrayList<OrderContentResponse>();
 	private List<ModelChangedListener> changedListeners = new ArrayList<ModelChangedListener>();
 	private String host;
 	private String shortlink;
@@ -58,13 +59,19 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 	}
 
 	public void sendProductList() {
+		OrderContentService contentService = new OrderContentService(context);
+		contentService.setNickname(nickname);
+
 		if (!productList.isEmpty()) {
 			OrderContentRequest orderContentRequest = new OrderContentRequest();
 			orderContentRequest.setProducts(productList);
+			contentService.httpPost(orderContentRequest,
+					new OrderContentRespondHandler());
+
 		}
 
 		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-		final OrderService service = new OrderService((Activity) context);
+		final OrderContentService service = new OrderContentService((Activity) context);
 		final Order order = this;
 		exec.scheduleAtFixedRate(new Runnable() {
 			public void run() {
@@ -72,7 +79,8 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 					@Override
 					public void run() {
-						service.httpGet("orders/"+ id + "/items", "", new PullRespondHandler()  );
+						service.httpGet("orders/" + id + "/items", "",
+								new OrderContentRespondHandler());
 					}
 				});
 
@@ -104,7 +112,7 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 		this.id = response.getId();
 		fireModelChanged();
 	}
-	
+
 	class PullRespondHandler implements RESTServiceHandler<OrderResponse> {
 
 		@Override
@@ -114,9 +122,25 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 		@Override
 		public void handlePostResponse(OrderResponse response) {
-			
+
 		}
-		
+
 	}
 
+	class OrderContentRespondHandler implements
+			RESTServiceHandler<List<OrderContentResponse>> {
+
+		@Override
+		public void handleGetResponse(List<OrderContentResponse> response) {
+
+		}
+
+		@Override
+		public void handlePostResponse(List<OrderContentResponse> response) {
+
+			productFormOthers = response;
+
+		}
+
+	}
 }
