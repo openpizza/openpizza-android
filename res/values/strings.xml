@@ -9,5 +9,6 @@
     <string name="title_activity_product_view">ProductView</string>
     <string name="title_activity_order">OrderActivity</string>
     <string name="title_activity_send_order">Send Order</string>
+    <string name="create_order">create order</string>
 
 </resources>

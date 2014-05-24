@@ -13,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.gson.Gson;
 
@@ -26,8 +25,7 @@ import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 import de.openpizza.android.views.shopview.ShopViewTabsPagerAdapter;
 
-public class ShopView extends FragmentActivity implements
-		ActionBar.TabListener, RESTServiceHandler<Shop> {
+public abstract class ShopView extends FragmentActivity implements ActionBar.TabListener, RESTServiceHandler<Shop> {
 
 	private ViewPager viewPager;
 	private ShopViewTabsPagerAdapter mAdapter;
@@ -35,6 +33,12 @@ public class ShopView extends FragmentActivity implements
 
 	RESTServiceCall<Void, Shop> service;
 
+
+	/** give the Menu to load**/
+	protected abstract int getMenuId();
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,22 +72,14 @@ public class ShopView extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
+		int menuId = getMenuId();
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.shop_view, menu);
+		getMenuInflater().inflate(menuId, menu);
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+
+	
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
