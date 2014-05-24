@@ -1,4 +1,4 @@
-package de.flopska.android_rest.service.restapi;
+package de.openpizza.android.service.restapi;
 
 /**
  * HTTP Methoden die an den Service geschickt werden können
@@ -10,7 +10,7 @@ package de.flopska.android_rest.service.restapi;
  */
 public interface RESTServiceCall<T, S> {
 	
-	public void httpGet();
+	public void httpGet(String url, String params, RESTServiceHandler<S> handler);
 	
 	public void httpPost(T data, RESTServiceHandler<S> handler);
 
