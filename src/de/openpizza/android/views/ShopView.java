@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.gson.Gson;
 
@@ -23,7 +22,7 @@ import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 import de.openpizza.android.views.shopview.ShopViewTabsPagerAdapter;
 
-public abstract class ShopView extends FragmentActivity implements ActionBar.TabListener {
+public abstract class ShopView extends FragmentActivity implements ActionBar.TabListener, RESTServiceHandler<Shop> {
 
 	private ViewPager viewPager;
 	private ShopViewTabsPagerAdapter mAdapter;
