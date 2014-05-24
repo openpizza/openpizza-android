@@ -1,7 +1,10 @@
 package de.openpizza.android.views.host;
 
-import de.openpizza.android.views.OrderActivity;
+import android.content.Intent;
+import android.view.MenuItem;
 import de.openpizza.android.R;
+import de.openpizza.android.views.OrderActivity;
+import de.openpizza.android.views.SendOrderActivity;
 
 public class OrderActivityHost extends OrderActivity {
 
@@ -10,4 +13,33 @@ public class OrderActivityHost extends OrderActivity {
 		return R.menu.order_host;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.finish_order_button) {
+			openSendOrderActivity();
+			return true;
+		}
+
+		if (id == R.id.edit_order_button) {
+			openShopView();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void openSendOrderActivity() {
+		Intent intent = new Intent(getApplicationContext(),
+				SendOrderActivity.class);
+		startActivity(intent);
+	}
+
+	private void openShopView() {
+		Intent intent = new Intent(getApplicationContext(),
+				ShopViewHostEdit.class);
+		startActivity(intent);
+	}
 }

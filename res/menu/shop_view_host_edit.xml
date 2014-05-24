@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.openpizza.android.ShopView" >
+
+    <item
+        android:id="@+id/finish_edit_button"
+        android:icon="@drawable/ic_action_accept"
+        android:showAsAction="ifRoom"
+        android:visible="true"
+        android:title="@string/create_order"/>
+</menu>
