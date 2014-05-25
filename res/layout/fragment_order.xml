@@ -10,11 +10,13 @@
 
     <ImageView
         android:id="@+id/shop_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignLeft="@+id/link_text"
         android:layout_alignParentTop="true"
-        android:src="@drawable/placeholder" />
+        android:src="@drawable/placeholder"
+        android:layout_marginRight="5dp" />
 
     <TextView
         android:id="@+id/order_name"
@@ -23,7 +25,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/shop_image"
         android:layout_toRightOf="@+id/shop_image"
-        android:text="Press long to Change"
+        android:text="Neue Bestellung"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

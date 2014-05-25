@@ -49,9 +49,6 @@ public abstract class ShopView extends FragmentActivity implements ActionBar.Tab
 		service.httpGet("shops/" + shop_id, "", this);
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.container);
-		
-		
-		
 	}
 
 	private static List<Category> shop2Categories(Shop shop) {

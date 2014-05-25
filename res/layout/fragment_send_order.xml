@@ -7,86 +7,85 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="de.openpizza.android.SendOrderActivity$PlaceholderFragment" >
-<EditText
+
+    <EditText
         android:id="@+id/name"
-        android:hint="Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:ems="10" >
+        android:ems="10"
+        android:hint="Name"
+        android:text="Hackathon" >
 
         <requestFocus />
     </EditText>
+
     <EditText
         android:id="@+id/street_text"
-        android:hint="Street/Nr."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/name"
-        android:ems="10" >
+        android:ems="10"
+        android:hint="Street/Nr."
+        android:text="Am Fasanengarten 5" >
 
         <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/postal_code_text"
-        android:hint="zipcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/street_text"
         android:layout_below="@+id/street_text"
-        android:ems="5" />
+        android:ems="5"
+        android:hint="zipcode"
+        android:text="76133" />
 
     <EditText
         android:id="@+id/city_text"
-        android:hint="city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/postal_code_text"
         android:layout_alignBottom="@+id/postal_code_text"
         android:layout_alignParentRight="true"
-        android:ems="8" />
+        android:ems="8"
+        android:hint="city"
+        android:text="Karlsruhe" />
 
-  <!--  <EditText
-        android:id="@+id/desc_text"
-        android:hint="Comment"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/postal_code_text"
-        android:layout_alignRight="@+id/city_text"
-        android:layout_below="@+id/city_text"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:lines="8"
-        android:minLines="3" />
--->  
+        android:orientation="vertical"
+        android:layout_below="@+id/city_text">
 
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/desc_text"
-        android:layout_centerVertical="true"
-        android:text="Barzahlung" />
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/desc_text"
+            android:layout_centerVertical="true"
+            android:text="Barzahlung" />
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioButton1"
-        android:layout_below="@+id/radioButton1"
-        android:text="PayPal" />
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioButton1"
+            android:layout_below="@+id/radioButton1"
+            android:text="PayPal" />
 
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioButton2"
-        android:layout_below="@+id/radioButton2"
-        android:text="Gutschein" />
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioButton2"
+            android:layout_below="@+id/radioButton2"
+            android:text="Gutschein" />
+    </RadioGroup>
 
 </RelativeLayout>

@@ -147,6 +147,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
 	}
 
 
@@ -192,6 +193,14 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			View rootView = inflater.inflate(R.layout.fragment_order,
 					container, false);
 			return rootView;
+		}
+		
+		@Override
+		public void onViewCreated(View view, Bundle savedInstanceState) {
+			// TODO Auto-generated method stub
+			super.onViewCreated(view, savedInstanceState);
+			ImageView image = (ImageView) getView().findViewById(R.id.shop_image);
+			image.setImageResource(R.drawable.pizza5);
 		}
 
 	}

@@ -2,13 +2,14 @@ package de.openpizza.android.views;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -204,11 +205,19 @@ import de.openpizza.android.views.host.ShopViewHost;
 class ShopListArrayAdapter extends ArrayAdapter<Shop> {
 
 	private List<Shop> shopList;
+	private List<Integer> images;
 
 	public ShopListArrayAdapter(Context context, int resource,
 			List<Shop> shopList) {
 		super(context, resource, shopList);
 		this.setShopList(shopList);
+		this.images = new ArrayList<Integer>();
+		images.add(R.drawable.pizza1);
+		images.add(R.drawable.pizza2);
+		images.add(R.drawable.pizza3);
+		images.add(R.drawable.pizza4);
+		images.add(R.drawable.pizza5);
+		images.add(R.drawable.pizza6);
 	}
 
 	@Override
@@ -220,7 +229,7 @@ class ShopListArrayAdapter extends ArrayAdapter<Shop> {
 		row = vi.inflate(R.layout.list_item_shop_list, null);
 		row.setTag(shop);
 		ImageView shopImage = (ImageView) row.findViewById(R.id.shop_image);
-
+		shopImage.setImageResource(images.get((int) (Math.random() * images.size())) );
 		TextView name = (TextView) row.findViewById(R.id.shop_name);
 		name.setText(shop.getName());
 		return row;
