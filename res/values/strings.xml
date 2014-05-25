@@ -10,10 +10,9 @@
     <string name="title_activity_send_order">Bestellung abschicken</string>
     <string name="create_order">Neue Bestellung</string>
     <string name="finish_order">Bestellung abschließen</string>
-    <string name="edit_order">edit order</string>
+    <string name="edit_order">Bestellung bearbeiten</string>
     <string name="save_product">Produkt hinzufügen</string>
     <string name="title_activity_link">Beitreten...</string>
-    <string name="send_order">Send Order</string>
->>>>>>> Stashed changes
+    <string name="send_order">Abschicken</string>
 
 </resources>

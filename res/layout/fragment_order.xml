@@ -81,7 +81,8 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/link_qr"
         android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:autoLink="web"/>
 
     <ImageView
         android:id="@+id/link_qr"

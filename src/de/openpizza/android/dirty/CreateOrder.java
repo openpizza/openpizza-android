@@ -39,7 +39,6 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 		orderRequest.setAddress(address);
 		orderRequest.setComplete(true);
 		OrderService service = new OrderService((Activity) this.context);
-		service.putData(orderRequest, this);
 
 	}
 

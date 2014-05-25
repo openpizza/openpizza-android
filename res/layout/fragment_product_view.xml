@@ -35,7 +35,7 @@
         android:layout_alignRight="@+id/product_desc"
         android:layout_below="@+id/product_desc"
         android:ems="3"
-        android:hint="0"
+        android:text="1"
         android:maxLength="2"
         android:inputType="numberSigned" >
 
@@ -51,13 +51,20 @@
         android:text="Size:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <RadioGroup
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/size_text"
+    >
+    
     <RadioButton
         android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/size_text"
         android:layout_below="@+id/size_text"
-        android:text="32 cm" />
+        android:text="28 cm" />
 
     <RadioButton
         android:id="@+id/RadioButton02"
@@ -65,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/radioButton1"
         android:layout_below="@+id/radioButton1"
-        android:text="32 cm" />
+        android:text="30 cm" />
 
     <RadioButton
         android:id="@+id/RadioButton01"
@@ -73,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/RadioButton02"
         android:layout_below="@+id/RadioButton02"
+		android:checked="true"
         android:text="32 cm" />
-
+	</RadioGroup>
 </RelativeLayout>
