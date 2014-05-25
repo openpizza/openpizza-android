@@ -13,6 +13,7 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 	private Context context;
 	private OrderBean orderBean;
 	private Activity activity;
+	private ModelChangedListener listener;
 
 	public CreateOrder(OrderBean bean, Context context, Activity activity) {
 		this.orderBean = bean;
@@ -33,13 +34,14 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 
 	}
 
-	public void sendOrderFinal(DeliveryAddress address) {
+	public void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl){
+		this.listener = mcl;
 		OrderRequest orderRequest = new OrderRequest();
 		orderRequest.setShop(orderBean.getShopid());
 		orderRequest.setAddress(address);
 		orderRequest.setComplete(true);
 		OrderService service = new OrderService((Activity) this.context);
-
+		service.httpPut(orderRequest, this);
 	}
 
 	@Override
@@ -57,8 +59,8 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 	}
 
 	@Override
-	public void handlePutResponse(OrderResponse Response) {
-		// TODO Auto-generated method stub
-
+	public void handlePutResponse(OrderResponse response) {
+		orderBean.setOrderResponse(response);
+		listener.onModelChanged(orderBean);
 	}
 }
