@@ -77,7 +77,6 @@ public class ShopViewHost extends ShopView implements NicknameHandler {
 
 	}
 
-	@Override
 	public void getNickname(String nickname) {
 		OrderFacade.setNickname(nickname);
 		Intent intent = new Intent(getApplicationContext(),

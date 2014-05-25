@@ -48,4 +48,11 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 	private void handleResponse(OrderResponse response) {
 		orderBean.setOrderResponse(response);
 	}
+
+
+	@Override
+	public void handlePutResponse(OrderResponse Response) {
+		// TODO Auto-generated method stub
+		
+	}
 }

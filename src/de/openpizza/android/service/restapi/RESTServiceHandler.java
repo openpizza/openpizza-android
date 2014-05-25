@@ -23,4 +23,11 @@ public interface RESTServiceHandler<T> {
 	 */
 	public void handlePostResponse(T response);
 	
+	/**
+	 * Callback für einen abgeschlossenen PUT Request
+	 * 
+	 * @param response erhaltene Daten
+	 */
+	public void handlePutResponse(T Response);
+	
 }

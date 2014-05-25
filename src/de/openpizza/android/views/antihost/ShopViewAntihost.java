@@ -3,6 +3,7 @@ package de.openpizza.android.views.antihost;
 import android.view.MenuItem;
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.service.data.Shop;
 import de.openpizza.android.views.ShopView;
 
 public class ShopViewAntihost extends ShopView {
@@ -28,5 +29,11 @@ public class ShopViewAntihost extends ShopView {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void handlePutResponse(Shop Response) {
+		// TODO Auto-generated method stub
+		
 	}
 }

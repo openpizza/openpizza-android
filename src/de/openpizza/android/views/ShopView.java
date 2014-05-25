@@ -125,6 +125,12 @@ public abstract class ShopView extends FragmentActivity implements ActionBar.Tab
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void handlePutResponse(Shop response) {
+		// TODO Auto-generated method stub
+
+	}
 
 
 	public int getShopId() {

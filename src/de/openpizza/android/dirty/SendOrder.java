@@ -64,4 +64,10 @@ public class SendOrder implements RESTServiceHandler<List<OrderContentResponse>>
 		// TODO: Ist im service aus kommentiert
 //		orderBean.setProductFormOthers(response);
 	}
+
+	@Override
+	public void handlePutResponse(List<OrderContentResponse> Response) {
+		// TODO Auto-generated method stub
+		
+	}
 }

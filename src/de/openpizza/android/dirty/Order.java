@@ -74,7 +74,6 @@ public class Order{
 
 	public void setNickname(String nickname) {
 		orderBean.setNickname(nickname);
-		
 	}
 
 	public List<Product> getProductList() {

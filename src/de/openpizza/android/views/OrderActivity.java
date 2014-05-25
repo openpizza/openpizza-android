@@ -39,7 +39,7 @@ import de.openpizza.android.service.data.Product;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 
 public abstract class OrderActivity extends ActionBarActivity implements
-		RESTServiceHandler<OrderResponse>, ModelChangedListener {
+		 ModelChangedListener {
 
 	Timer t;
 	private OrderBean orderBean;
@@ -135,17 +135,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	}
 
 	protected abstract int getMenuId();
-
-	@Override
-	public void handlePostResponse(OrderResponse response) {
-		Log.v("handlePostResponse", new Gson().toJson(response));
-	}
-
-	@Override
-	public void handleGetResponse(OrderResponse response) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
