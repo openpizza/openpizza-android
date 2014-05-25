@@ -7,7 +7,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="de.openpizza.android.SendOrderActivity$PlaceholderFragment" >
+<EditText
+        android:id="@+id/name"
+        android:hint="Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10" >
 
+        <requestFocus />
+    </EditText>
     <EditText
         android:id="@+id/street_text"
         android:hint="Street/Nr."
@@ -15,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/name"
         android:ems="10" >
 
         <requestFocus />

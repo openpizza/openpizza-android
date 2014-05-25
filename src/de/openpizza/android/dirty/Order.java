@@ -2,19 +2,10 @@ package de.openpizza.android.dirty;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
-import de.openpizza.android.service.OrderContentService;
-import de.openpizza.android.service.OrderService;
-import de.openpizza.android.service.data.OrderContentRequest;
-import de.openpizza.android.service.data.OrderContentResponse;
-import de.openpizza.android.service.data.OrderRequest;
-import de.openpizza.android.service.data.OrderResponse;
+import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.Product;
-import de.openpizza.android.service.restapi.RESTServiceHandler;
-import de.openpizza.android.views.host.OrderActivityHost;
 
 public class Order{
 
@@ -78,6 +69,10 @@ public class Order{
 
 	public List<Product> getProductList() {
 		return orderBean.getProductList();
+	}
+
+	public void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl){
+		createOrder.sendOrderFinal(address, mcl);
 	}
 
 }
