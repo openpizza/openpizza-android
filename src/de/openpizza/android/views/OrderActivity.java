@@ -7,6 +7,7 @@ import java.util.Timer;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -107,8 +108,10 @@ public abstract class OrderActivity extends ActionBarActivity implements
 				View view = super.getView(position, convertView, parent);
 				TextView text1 = (TextView) view
 						.findViewById(android.R.id.text1);
+				text1.setTextColor(Color.BLACK);
 				TextView text2 = (TextView) view
 						.findViewById(android.R.id.text2);
+				text2.setTextColor(Color.BLACK);
 
 				text1.setText(products.get(position).getName());
 				text2.setText(products.get(position).getNickname());

@@ -13,5 +13,7 @@
     <string name="edit_order">edit order</string>
     <string name="save_product">Produkt hinzufügen</string>
     <string name="title_activity_link">Beitreten...</string>
+    <string name="send_order">Send Order</string>
+>>>>>>> Stashed changes
 
 </resources>
