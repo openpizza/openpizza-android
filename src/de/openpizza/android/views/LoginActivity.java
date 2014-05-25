@@ -1,10 +1,5 @@
 package de.openpizza.android.views;
 
-import de.openpizza.android.R;
-import de.openpizza.android.R.id;
-import de.openpizza.android.R.layout;
-import de.openpizza.android.R.menu;
-import de.openpizza.android.R.string;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -19,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import de.openpizza.android.R;
 
 /**
  * Activity which displays a login screen to the user, offering registration as

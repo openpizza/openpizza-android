@@ -145,6 +145,12 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 		}
 
+		@Override
+		public void handlePutResponse(OrderResponse Response) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	class OrderContentRespondHandler implements
@@ -161,6 +167,12 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 		}
 
+		@Override
+		public void handlePutResponse(List<OrderContentResponse> Response) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	public String getLink() {
@@ -171,6 +183,12 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 		OrderService os = new OrderService(context);
 		os.httpGet("orders/"+id2, "", this);
 
+		
+	}
+
+	@Override
+	public void handlePutResponse(OrderResponse Response) {
+		// TODO Auto-generated method stub
 		
 	}
 }

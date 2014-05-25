@@ -3,11 +3,10 @@ package de.openpizza.android.views.antihost;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import de.openpizza.android.dirty.OrderFacade;
-import de.openpizza.android.views.OrderActivity;
-import de.openpizza.android.views.SendOrderActivity;
-import de.openpizza.android.views.host.ShopViewHostEdit;
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.service.data.OrderResponse;
+import de.openpizza.android.views.OrderActivity;
 
 public class OrderActivityAntihost extends OrderActivity {
 
@@ -57,6 +56,12 @@ public class OrderActivityAntihost extends OrderActivity {
 		super.setNickname(nickname);
 		OrderFacade.get("sssssssss", this.getParent());
 
+	}
+
+	@Override
+	public void handlePutResponse(OrderResponse Response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

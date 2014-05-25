@@ -104,6 +104,12 @@ import de.openpizza.android.views.host.ShopViewHost;
 				// TODO Auto-generated method stub
 				
 			}
+
+			@Override
+			public void handlePutResponse(List<Shop> Response) {
+				// TODO Auto-generated method stub
+				
+			}
 		}
 
 		private ShopListArrayAdapter listViewAdapter;
@@ -184,6 +190,12 @@ import de.openpizza.android.views.host.ShopViewHost;
 	public void handlePostResponse(List<Shop> response) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void handlePutResponse(List<Shop> Response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

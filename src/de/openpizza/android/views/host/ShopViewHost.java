@@ -2,12 +2,11 @@ package de.openpizza.android.views.host;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import de.openpizza.android.dirty.OrderFacade;
-import de.openpizza.android.service.ShopIdService;
-import de.openpizza.android.views.ShopView;
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.service.data.Shop;
+import de.openpizza.android.views.ShopView;
 
 public class ShopViewHost extends ShopView {
 
@@ -43,6 +42,12 @@ public class ShopViewHost extends ShopView {
 		OrderFacade.newOrder(super.getShopId(), this);
 
 
+	}
+
+	@Override
+	public void handlePutResponse(Shop Response) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
