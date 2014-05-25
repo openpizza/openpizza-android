@@ -6,7 +6,7 @@
     <item
         android:id="@+id/edit_order_button"
         android:icon="@drawable/ic_action_edit"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:visible="true"
         android:title="@string/edit_order"/>
 

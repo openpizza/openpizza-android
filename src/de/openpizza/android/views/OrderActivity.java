@@ -59,6 +59,7 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	}
 
 	private void setqr(String qrData) {
+		qrData = qrData.replaceAll("http", "openpizza");
 		ImageView iv = (ImageView) findViewById(R.id.link_qr);
 		QRCodeWriter qrCodeEncoder = new QRCodeWriter();
 

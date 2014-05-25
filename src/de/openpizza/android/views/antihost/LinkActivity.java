@@ -37,7 +37,7 @@ public class LinkActivity extends ActionBarActivity implements NicknameHandler {
 
 		Uri data = getIntent().getData();
 		List<String> params = data.getPathSegments();
-		orderId = params.get(0); // "id"
+		orderId = params.get(1); // "id"
 
 		OrderFacade.fetchOrder(orderId, this);
 
