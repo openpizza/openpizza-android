@@ -2,8 +2,6 @@ package de.openpizza.android.views;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import android.content.Context;
 import android.content.Intent;

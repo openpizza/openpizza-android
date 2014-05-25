@@ -15,12 +15,10 @@ public class SendOrder implements
 		RESTServiceHandler<List<OrderContentResponse>> {
 	private Context context;
 	private OrderBean orderBean;
-	private Activity activity;
 
 	public SendOrder(OrderBean bean, Context context, Activity activity) {
 		this.orderBean = bean;
 		this.context = context;
-		this.activity = activity;
 	}
 
 	public void sendProductList() {
@@ -38,7 +36,6 @@ public class SendOrder implements
 	}
 
 	public void startPulling(Activity activity) {
-		this.activity = activity;
 		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
 		final OrderContentService service = new OrderContentService(activity);
 		service.setId(orderBean.getId());

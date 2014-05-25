@@ -1,6 +1,5 @@
 package de.openpizza.android.service.data;
 
-import android.R.bool;
 
 /**
  */

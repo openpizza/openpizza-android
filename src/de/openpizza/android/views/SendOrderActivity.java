@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.ModelChangedListener;
-import de.openpizza.android.dirty.NicknameHandler;
 import de.openpizza.android.dirty.OrderBean;
 import de.openpizza.android.dirty.OrderFacade;
 import de.openpizza.android.service.data.DeliveryAddress;

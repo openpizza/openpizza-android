@@ -12,13 +12,11 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 
 	private Context context;
 	private OrderBean orderBean;
-	private Activity activity;
 	private ModelChangedListener listener;
 
-	public CreateOrder(OrderBean bean, Context context, Activity activity) {
+	public CreateOrder(OrderBean bean, Context context) {
 		this.orderBean = bean;
 		this.context = context;
-		this.activity = activity;
 	}
 
 	public void createOrderOnServer() {

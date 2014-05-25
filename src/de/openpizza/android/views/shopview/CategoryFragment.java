@@ -1,7 +1,5 @@
 package de.openpizza.android.views.shopview;
 
-import com.google.gson.Gson;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +12,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
 import de.openpizza.android.Category;
 import de.openpizza.android.R;
 import de.openpizza.android.service.data.Product;

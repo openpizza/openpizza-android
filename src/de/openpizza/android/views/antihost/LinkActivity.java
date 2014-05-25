@@ -2,14 +2,6 @@ package de.openpizza.android.views.antihost;
 
 import java.util.List;
 
-import de.openpizza.android.R;
-import de.openpizza.android.R.id;
-import de.openpizza.android.R.layout;
-import de.openpizza.android.R.menu;
-import de.openpizza.android.dirty.NicknameHandler;
-import de.openpizza.android.dirty.OrderFacade;
-import de.openpizza.android.views.host.OrderActivityHost;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import de.openpizza.android.R;
+import de.openpizza.android.dirty.NicknameHandler;
+import de.openpizza.android.dirty.OrderFacade;
 
 public class LinkActivity extends ActionBarActivity implements NicknameHandler {
 	private String orderId;
-	private TextView link_view;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

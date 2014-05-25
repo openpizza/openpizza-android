@@ -67,7 +67,7 @@ public class ProductView extends ActionBarActivity {
 			quantity = Integer.parseInt(quanEditText.getText().toString());
 		} catch (Exception e) {
 		}
-		OrderFacade.addProduct(this.product, quantity);
+		OrderFacade.addProduct(product, quantity);
 		finish();
 
 	}

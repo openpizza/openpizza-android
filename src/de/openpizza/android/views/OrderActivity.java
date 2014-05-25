@@ -35,7 +35,6 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		 ModelChangedListener {
 
 	Timer t;
-	private OrderBean orderBean;
 
 	@Override
 	public void onModelChanged(OrderBean orderBean) {

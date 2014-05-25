@@ -9,7 +9,6 @@ import de.openpizza.android.service.data.Product;
 
 public class Order{
 
-	private Activity context;
 	private List<ModelChangedListener> changedListeners = new ArrayList<ModelChangedListener>();
 	private OrderBean orderBean;
 	private CreateOrder createOrder;
@@ -20,17 +19,15 @@ public class Order{
 	}
 
 	public Order(int shopid, Activity context) {
-		this.context = context;
 		this.orderBean = new OrderBean(this);
 		this.orderBean.setShopid(shopid);
-		this.createOrder = new CreateOrder(orderBean, context, context);
+		this.createOrder = new CreateOrder(orderBean, context);
 		this.sendOrder = new SendOrder(orderBean, context, context);
 	}
 
 	public Order(Activity context) {
-		this.context = context;
 		this.orderBean = new OrderBean(this);
-		this.createOrder = new CreateOrder(orderBean, context, context);
+		this.createOrder = new CreateOrder(orderBean, context);
 		this.sendOrder = new SendOrder(orderBean, context, context);
 	}
 

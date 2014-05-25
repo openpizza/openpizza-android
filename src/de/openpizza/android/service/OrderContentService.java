@@ -48,7 +48,7 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 		@Override
 		protected void onPreExecute() {
 			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.show();
 		}
 
 		@Override
@@ -56,9 +56,10 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 			return getData(url + "?" + httpParams);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			Log.d("OrderContentService", result);
 			Type listType = new TypeToken<List<OrderContentResponse>>() {}.getType();
 			serviceHandler.handleGetResponse((List<OrderContentResponse>) gson.fromJson(result, listType));

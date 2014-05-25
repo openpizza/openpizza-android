@@ -3,11 +3,8 @@ package de.openpizza.android.dirty;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import de.openpizza.android.service.data.DeliveryAddress;
-import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.Product;
-import de.openpizza.android.views.host.OrderActivityHost;
 
 public class OrderFacade {
 	

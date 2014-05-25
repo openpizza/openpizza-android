@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.OrderFacade;
-import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.views.OrderActivity;
 import de.openpizza.android.views.SendOrderActivity;
 
