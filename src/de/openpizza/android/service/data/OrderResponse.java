@@ -1,20 +1,6 @@
 package de.openpizza.android.service.data;
-/**
- * {
-                "id": "2d931510-d99f-494a-8c67-87feb05e1594",
-                "short_link": "http://open-pizza.de/2d931510-d99f-494a-8c67-87feb05e1594",
-                "estimated_participants": 6,
-                "shop": 1,
-                "delivery_address": {
-                    "name": "Max Pizzahunger",
-                    "address": "Karlstrasse 123",
-                    "postcode": "67676",
-                    "city": "Karlsruhe"
-                }
-            }
 
 
- */
 public class OrderResponse {
 	private String id;
 	private String short_link;
