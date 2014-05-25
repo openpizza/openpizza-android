@@ -26,13 +26,13 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.ModelChangedListener;
-import de.openpizza.android.dirty.OrderBean;
+import de.openpizza.android.ordermodul.ModelChangedListener;
+import de.openpizza.android.ordermodul.OrderBean;
 import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.Product;
 
 public abstract class OrderActivity extends ActionBarActivity implements
-		 ModelChangedListener {
+		ModelChangedListener {
 
 	Timer t;
 
@@ -115,7 +115,8 @@ public abstract class OrderActivity extends ActionBarActivity implements
 
 	private void setProductList(OrderBean orderBean) {
 
-		List<OrderContentResponse> productFormOthers = orderBean.getProductFormOthers();
+		List<OrderContentResponse> productFormOthers = orderBean
+				.getProductFormOthers();
 		List<Product> list = new ArrayList<Product>();
 
 		for (OrderContentResponse cr : productFormOthers) {
@@ -139,12 +140,9 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
+
 	}
 
-
-
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -167,7 +165,8 @@ public abstract class OrderActivity extends ActionBarActivity implements
 	}
 
 	public void setNickname(String nickname) {
-		TextView nickname_view = (TextView) this.findViewById(R.id.nickname_text);
+		TextView nickname_view = (TextView) this
+				.findViewById(R.id.nickname_text);
 		nickname_view.setText(nickname);
 	}
 
@@ -186,12 +185,13 @@ public abstract class OrderActivity extends ActionBarActivity implements
 					container, false);
 			return rootView;
 		}
-		
+
 		@Override
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onViewCreated(view, savedInstanceState);
-			ImageView image = (ImageView) getView().findViewById(R.id.shop_image);
+			ImageView image = (ImageView) getView().findViewById(
+					R.id.shop_image);
 			image.setImageResource(R.drawable.pizza5);
 		}
 

@@ -24,14 +24,17 @@ public class ShopsService extends RESTService<List<Shop>> implements
 	}
 
 	@Override
-	public void httpGet(String url, String params, RESTServiceHandler<List<Shop>> handler) {
+	public void httpGet(String url, String params,
+			RESTServiceHandler<List<Shop>> handler) {
 		new GetTask(url, params, handler).execute();
 	}
 
 	private class GetTask extends AsyncTask<String, Void, String> {
 		private String url;
 		private String httpParams;
-		public GetTask(String url, String params, RESTServiceHandler<List<Shop>> handler) {
+
+		public GetTask(String url, String params,
+				RESTServiceHandler<List<Shop>> handler) {
 			this.url = url;
 			this.httpParams = params;
 			serviceHandler = handler;
@@ -52,9 +55,10 @@ public class ShopsService extends RESTService<List<Shop>> implements
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-			Type listType = new TypeToken<List<Shop>>() {}.getType();
-			serviceHandler
-					.handleGetResponse((List<Shop>) gson.fromJson(result, listType));
+			Type listType = new TypeToken<List<Shop>>() {
+			}.getType();
+			serviceHandler.handleGetResponse((List<Shop>) gson.fromJson(result,
+					listType));
 		}
 	}
 
@@ -66,8 +70,7 @@ public class ShopsService extends RESTService<List<Shop>> implements
 	@Override
 	public void httpPut(Void data, RESTServiceHandler<List<Shop>> handler) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

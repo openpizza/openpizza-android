@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.OrderFacade;
 import de.openpizza.android.views.OrderActivity;
 import de.openpizza.android.views.SendOrderActivity;
 
@@ -45,7 +45,7 @@ public class OrderActivityHost extends OrderActivity {
 				ShopViewHostEdit.class);
 		startActivity(intent);
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 

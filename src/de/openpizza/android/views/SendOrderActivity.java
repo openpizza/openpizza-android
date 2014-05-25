@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.ModelChangedListener;
-import de.openpizza.android.dirty.OrderBean;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.ModelChangedListener;
+import de.openpizza.android.ordermodul.OrderBean;
+import de.openpizza.android.ordermodul.OrderFacade;
 import de.openpizza.android.service.data.DeliveryAddress;
 
 public class SendOrderActivity extends ActionBarActivity implements

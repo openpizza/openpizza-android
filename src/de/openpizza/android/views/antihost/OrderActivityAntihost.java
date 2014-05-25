@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.OrderFacade;
 import de.openpizza.android.views.OrderActivity;
 
 public class OrderActivityAntihost extends OrderActivity {
@@ -27,7 +27,6 @@ public class OrderActivityAntihost extends OrderActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 
 	private void openShopView() {
 		Intent intent = new Intent(getApplicationContext(),

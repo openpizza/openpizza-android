@@ -1,4 +1,4 @@
-package de.openpizza.android.dirty;
+package de.openpizza.android.ordermodul;
 
 import java.util.List;
 
@@ -7,26 +7,25 @@ import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.Product;
 
 public class OrderFacade {
-	
+
 	private static Order INSTANCE;
 
 	private OrderFacade() {
 
-		
 	}
-	
+
 	public static void newOrder(int shopid, Activity context) {
 		INSTANCE = new Order(shopid, context);
 	}
-	
+
 	public static void sentProducts() {
 		INSTANCE.sendProductList();
 	}
-	
+
 	public static void createOrder() {
 		INSTANCE.createOrder();
 	}
-	
+
 	public static void fetchOrder(String id, Activity context) {
 		INSTANCE = new Order(context);
 		INSTANCE.fetchOrder(id);
@@ -36,31 +35,31 @@ public class OrderFacade {
 		INSTANCE.startPulling(orderActivityHost);
 	}
 
-	public static void addModeleChangedListener(
-			ModelChangedListener mcl) {
+	public static void addModeleChangedListener(ModelChangedListener mcl) {
 		INSTANCE.addListener(mcl);
 	}
-	
+
 	public static void removeAllListener() {
 		INSTANCE.removeAllListener();
-		
+
 	}
 
 	public static void addProduct(Product product, Integer quantity) {
 		INSTANCE.addProduct(product, quantity);
-		
+
 	}
 
 	public static void setNickname(String nickname) {
 		INSTANCE.setNickname(nickname);
-		
+
 	}
 
 	public static List<Product> getProductList() {
 		return INSTANCE.getProductList();
 	}
 
-	public static void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl){
+	public static void sendOrderFinal(DeliveryAddress address,
+			ModelChangedListener mcl) {
 		INSTANCE.sendOrderFinal(address, mcl);
 	}
 

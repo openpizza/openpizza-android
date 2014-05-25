@@ -7,7 +7,7 @@ public class OrderContentResponse {
 	private List<Product> products;
 	private String comment;
 	private double price;
-	
+
 	public OrderContentResponse() {
 		// empty constructor for gson
 	}
@@ -52,5 +52,5 @@ public class OrderContentResponse {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 }

@@ -16,8 +16,9 @@ import de.openpizza.android.service.restapi.RESTService;
 import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 
-public class OrderContentService extends RESTService<List<OrderContentResponse>>
-		implements RESTServiceCall<OrderContentRequest, List<OrderContentResponse>> {
+public class OrderContentService extends
+		RESTService<List<OrderContentResponse>> implements
+		RESTServiceCall<OrderContentRequest, List<OrderContentResponse>> {
 	Gson gson;
 
 	public OrderContentService(Activity activity) {
@@ -48,7 +49,7 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 		@Override
 		protected void onPreExecute() {
 			dialog.setMessage("Loading...");
-//			dialog.show();
+			// dialog.show();
 		}
 
 		@Override
@@ -59,12 +60,13 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void onPostExecute(String result) {
-//			dialog.dismiss();
+			// dialog.dismiss();
 			Log.d("OrderContentService", result);
-			Type listType = new TypeToken<List<OrderContentResponse>>() {}.getType();
-			serviceHandler.handleGetResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
-		
-			
+			Type listType = new TypeToken<List<OrderContentResponse>>() {
+			}.getType();
+			serviceHandler.handleGetResponse((List<OrderContentResponse>) gson
+					.fromJson(result, listType));
+
 		}
 	}
 
@@ -114,7 +116,8 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-//			serviceHandler.handlePostResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
+			// serviceHandler.handlePostResponse((List<OrderContentResponse>)
+			// gson.fromJson(result, listType));
 		}
 
 	}
@@ -123,7 +126,7 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 	public void httpPut(OrderContentRequest data,
 			RESTServiceHandler<List<OrderContentResponse>> handler) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

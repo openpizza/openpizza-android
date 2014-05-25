@@ -2,7 +2,7 @@ package de.openpizza.android.views.host;
 
 import android.view.MenuItem;
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.OrderFacade;
 import de.openpizza.android.service.data.Shop;
 import de.openpizza.android.views.ShopView;
 
@@ -26,7 +26,6 @@ public class ShopViewHostEdit extends ShopView {
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	private void returnToOrderActivity() {
 		OrderFacade.sentProducts();
 		finish();
@@ -35,7 +34,7 @@ public class ShopViewHostEdit extends ShopView {
 	@Override
 	public void handlePutResponse(Shop Response) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

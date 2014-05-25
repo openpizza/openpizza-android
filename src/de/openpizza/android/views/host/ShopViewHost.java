@@ -8,8 +8,8 @@ import android.text.InputType;
 import android.view.MenuItem;
 import android.widget.EditText;
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.NicknameHandler;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.NicknameHandler;
+import de.openpizza.android.ordermodul.OrderFacade;
 import de.openpizza.android.views.ShopView;
 
 public class ShopViewHost extends ShopView implements NicknameHandler {
@@ -32,11 +32,11 @@ public class ShopViewHost extends ShopView implements NicknameHandler {
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	private void openOrderActivity() {
 		showGetNickDialog(this);
 	}
-		protected void showGetNickDialog(final NicknameHandler nh) {
+
+	protected void showGetNickDialog(final NicknameHandler nh) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Enter nickname:");
 
@@ -66,22 +66,21 @@ public class ShopViewHost extends ShopView implements NicknameHandler {
 		builder.show();
 
 	}
-		
-		
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		OrderFacade.newOrder(super.getShopId(), this);
 
+		OrderFacade.newOrder(super.getShopId(), this);
 
 	}
 
+	@Override
 	public void getNickname(String nickname) {
 		OrderFacade.setNickname(nickname);
 		Intent intent = new Intent(getApplicationContext(),
 				OrderActivityHost.class);
 		startActivity(intent);
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package de.openpizza.android.dirty;
+package de.openpizza.android.ordermodul;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import android.app.Activity;
 import de.openpizza.android.service.data.DeliveryAddress;
 import de.openpizza.android.service.data.Product;
 
-public class Order{
+public class Order {
 
 	private List<ModelChangedListener> changedListeners = new ArrayList<ModelChangedListener>();
 	private OrderBean orderBean;
@@ -38,15 +38,15 @@ public class Order{
 	public void fetchOrder(String id) {
 		createOrder.fetchOrder(id);
 	}
-	
+
 	public void startPulling(Activity orderActivityHost) {
 		sendOrder.startPulling(orderActivityHost);
 	}
-	
+
 	public void sendProductList() {
 		sendOrder.sendProductList();
 	}
-	
+
 	public void fireModelChanged() {
 		for (ModelChangedListener l : this.changedListeners) {
 			l.onModelChanged(orderBean);
@@ -55,9 +55,9 @@ public class Order{
 	}
 
 	public void addProduct(Product product, Integer quantity) {
-		
+
 		orderBean.addProduct(product, quantity);
-		
+
 	}
 
 	public void setNickname(String nickname) {
@@ -68,7 +68,7 @@ public class Order{
 		return orderBean.getProductList();
 	}
 
-	public void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl){
+	public void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl) {
 		createOrder.sendOrderFinal(address, mcl);
 	}
 

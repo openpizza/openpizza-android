@@ -5,7 +5,7 @@ import java.util.List;
 public class OrderContentRequest {
 	private List<Product> products;
 	private String comment;
-	
+
 	public OrderContentRequest() {
 		// empty constructor for gson
 	}
@@ -31,6 +31,5 @@ public class OrderContentRequest {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
-	
+
 }

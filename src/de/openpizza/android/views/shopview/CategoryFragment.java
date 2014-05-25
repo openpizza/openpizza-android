@@ -28,43 +28,45 @@ public class CategoryFragment extends Fragment {
 	public CategoryFragment() {
 	}
 
-	public static final CategoryFragment newInstance(Category category)
-	{
+	public static final CategoryFragment newInstance(Category category) {
 		CategoryFragment categoryFragment = new CategoryFragment();
 		categoryFragment.category = category;
 
-	    return categoryFragment;
+		return categoryFragment;
 	}
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_shop_view_category,
 				container, false);
-		
-		TextView categoryNameView = (TextView) rootView.findViewById(R.id.category_name);
+
+		TextView categoryNameView = (TextView) rootView
+				.findViewById(R.id.category_name);
 		categoryNameView.setText(category.getName());
 
-		ListView productList = (ListView) rootView.findViewById(R.id.category_list);
-		ArrayAdapter<Product> dataAdapter = new ArrayAdapter<Product>(this.getActivity(),
-				android.R.layout.simple_list_item_1, category.getProducts());
-		
+		ListView productList = (ListView) rootView
+				.findViewById(R.id.category_list);
+		ArrayAdapter<Product> dataAdapter = new ArrayAdapter<Product>(
+				this.getActivity(), android.R.layout.simple_list_item_1,
+				category.getProducts());
+
 		productList.setAdapter(dataAdapter);
 		productList.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Product product = (Product) category.getProducts().get(position);
+				Product product = category.getProducts()
+						.get(position);
 				// IntentSafe.getInstance().setData(bill.getId(), bill);
-				Intent intent = new Intent(getActivity(),
-						ProductView.class);
+				Intent intent = new Intent(getActivity(), ProductView.class);
 				intent.putExtra("productId", product.getId());
 				intent.putExtra("product", new Gson().toJson(product));
 				startActivity(intent);
 			}
 		});
-		
+
 		return rootView;
 	}
 

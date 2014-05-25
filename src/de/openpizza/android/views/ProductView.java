@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.OrderFacade;
 import de.openpizza.android.service.data.Product;
 
 public class ProductView extends ActionBarActivity {
@@ -34,7 +34,7 @@ public class ProductView extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
+
 	}
 
 	@Override
@@ -85,9 +85,11 @@ public class ProductView extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_product_view,
 					container, false);
-			TextView nameView = (TextView) rootView.findViewById(R.id.product_name);
+			TextView nameView = (TextView) rootView
+					.findViewById(R.id.product_name);
 			nameView.setText(product.getName());
-			TextView descView = (TextView) rootView.findViewById(R.id.product_desc);
+			TextView descView = (TextView) rootView
+					.findViewById(R.id.product_desc);
 			descView.setText("");
 
 			List<Product> products = OrderFacade.getProductList();
@@ -96,7 +98,7 @@ public class ProductView extends ActionBarActivity {
 				if (p.getId() == product.getId()) {
 					TextView countView = (TextView) rootView
 							.findViewById(R.id.product_count);
-					countView.setText(product.getQuantity()+"");
+					countView.setText(product.getQuantity() + "");
 				}
 			}
 			return rootView;

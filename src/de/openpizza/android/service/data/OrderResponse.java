@@ -1,6 +1,5 @@
 package de.openpizza.android.service.data;
 
-
 public class OrderResponse {
 	private String id;
 	private String short_link;
@@ -8,9 +7,9 @@ public class OrderResponse {
 	private int estimated_participants;
 	private int shop;
 	private DeliveryAddress delivery_address;
-	
+
 	public OrderResponse() {
-		//empty constructor for gson
+		// empty constructor for gson
 	}
 
 	public OrderResponse(String id, String short_link,

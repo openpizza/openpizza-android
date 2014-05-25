@@ -1,4 +1,4 @@
-package de.openpizza.android.dirty;
+package de.openpizza.android.ordermodul;
 
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -41,6 +41,7 @@ public class SendOrder implements
 		service.setId(orderBean.getId());
 		final SendOrder sendOrder = this;
 		exec.scheduleAtFixedRate(new Runnable() {
+			@Override
 			public void run() {
 				((Activity) context).runOnUiThread(new Runnable() {
 
@@ -54,8 +55,6 @@ public class SendOrder implements
 			}
 		}, 0, 5, TimeUnit.SECONDS); // execute every 60 seconds
 	}
-
-	
 
 	@Override
 	public void handleGetResponse(List<OrderContentResponse> response) {

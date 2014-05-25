@@ -31,8 +31,8 @@ import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 import de.openpizza.android.views.host.ShopViewHost;
 
-	public class ShopOverview extends FragmentActivity implements
-			RESTServiceHandler<List<Shop>> {
+public class ShopOverview extends FragmentActivity implements
+		RESTServiceHandler<List<Shop>> {
 
 	private RESTServiceCall<Void, List<Shop>> service;
 	private PlaceholderFragment shopListFragment;
@@ -78,14 +78,15 @@ import de.openpizza.android.views.host.ShopViewHost;
 	public static class PlaceholderFragment extends Fragment {
 
 		private final class OnItemSelectedListenerImplementation implements
-				AdapterView.OnItemSelectedListener, RESTServiceHandler<List<Shop>> {
+				AdapterView.OnItemSelectedListener,
+				RESTServiceHandler<List<Shop>> {
 			@Override
-			public void onItemSelected(AdapterView<?> arg0,
-					View arg1, int arg2, long arg3) {
-				RESTServiceCall<Void, List<Shop>> service = new ShopsService(getActivity());
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				RESTServiceCall<Void, List<Shop>> service = new ShopsService(
+						getActivity());
 				service.httpGet("shops", "postcode=12345", this);
-				Log.d("item",
-						((City) arg0.getAdapter().getItem(arg2)).id);
+				Log.d("item", ((City) arg0.getAdapter().getItem(arg2)).id);
 			}
 
 			@Override
@@ -96,19 +97,19 @@ import de.openpizza.android.views.host.ShopViewHost;
 
 			@Override
 			public void handleGetResponse(List<Shop> response) {
-				 setData(response);
+				setData(response);
 			}
 
 			@Override
 			public void handlePostResponse(List<Shop> response) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void handlePutResponse(List<Shop> Response) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		}
 
@@ -129,7 +130,7 @@ import de.openpizza.android.views.host.ShopViewHost;
 
 			return rootView;
 		}
-		
+
 		public void setData(List<Shop> data) {
 			listViewAdapter.setShopList(data);
 		}
@@ -139,11 +140,12 @@ import de.openpizza.android.views.host.ShopViewHost;
 					.findViewById(R.id.listView_shops);
 
 			List<Shop> shopList = new ArrayList<Shop>();
-			listViewAdapter = new ShopListArrayAdapter(
-					getActivity(), R.layout.fragment_shop_overview, shopList);
+			listViewAdapter = new ShopListArrayAdapter(getActivity(),
+					R.layout.fragment_shop_overview, shopList);
 			listView.setAdapter(listViewAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
+				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					Shop shop = (Shop) view.getTag();
@@ -195,7 +197,7 @@ import de.openpizza.android.views.host.ShopViewHost;
 	@Override
 	public void handlePutResponse(List<Shop> Response) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
@@ -227,19 +229,16 @@ class ShopListArrayAdapter extends ArrayAdapter<Shop> {
 		row = vi.inflate(R.layout.list_item_shop_list, null);
 		row.setTag(shop);
 		ImageView shopImage = (ImageView) row.findViewById(R.id.shop_image);
-		shopImage.setImageResource(images.get((int) (Math.random() * images.size())) );
+		shopImage.setImageResource(images.get((int) (Math.random() * images
+				.size())));
 		TextView name = (TextView) row.findViewById(R.id.shop_name);
 		name.setText(shop.getName());
 		return row;
 	}
 
-
-
 	public List<Shop> getShopList() {
 		return shopList;
 	}
-
-
 
 	public void setShopList(List<Shop> shopList) {
 		clear();

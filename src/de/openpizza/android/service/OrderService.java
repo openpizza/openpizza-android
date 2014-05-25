@@ -15,8 +15,9 @@ import de.openpizza.android.service.restapi.RESTServiceHandler;
 public class OrderService extends RESTService<OrderResponse> implements
 		RESTServiceCall<OrderRequest, OrderResponse> {
 	Gson gson;
-	
+
 	private String id = "0";
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -103,8 +104,10 @@ public class OrderService extends RESTService<OrderResponse> implements
 		String json = gson.toJson(data);
 		new PutTask(handler, id).execute(json);
 	}
+
 	private class PutTask extends AsyncTask<String, Void, String> {
 		private String id;
+
 		public PutTask(RESTServiceHandler<OrderResponse> handler, String id) {
 			serviceHandler = handler;
 			this.id = id;

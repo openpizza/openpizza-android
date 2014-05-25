@@ -14,18 +14,20 @@ public class ShopViewTabsPagerAdapter extends FragmentPagerAdapter {
 	private List<Category> categoryList;
 	private Shop shop;
 
-	public ShopViewTabsPagerAdapter(FragmentManager fm, List<Category> categoryList, Shop shop) {
+	public ShopViewTabsPagerAdapter(FragmentManager fm,
+			List<Category> categoryList, Shop shop) {
 		super(fm);
-        this.categoryList = categoryList;
-        this.shop = shop;
+		this.categoryList = categoryList;
+		this.shop = shop;
 	}
 
 	@Override
 	public Fragment getItem(int index) {
-		if(index == 0)
+		if (index == 0)
 			return new ShowViewFragment(shop);
 
-		return CategoryFragment.newInstance(categoryList.get(index-fragmentBias));
+		return CategoryFragment.newInstance(categoryList.get(index
+				- fragmentBias));
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package de.openpizza.android.dirty;
+package de.openpizza.android.ordermodul;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,7 +32,7 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 
 	}
 
-	public void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl){
+	public void sendOrderFinal(DeliveryAddress address, ModelChangedListener mcl) {
 		this.listener = mcl;
 		OrderRequest orderRequest = new OrderRequest();
 		orderRequest.setShop(orderBean.getShopid());

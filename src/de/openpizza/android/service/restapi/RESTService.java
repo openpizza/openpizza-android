@@ -46,8 +46,7 @@ public abstract class RESTService<T> {
 		try {
 			// Create a new HttpClient and Post Header
 			httpClient = new DefaultHttpClient();
-			HttpGet httpGet = new HttpGet(API_URL
-					+ suburl);
+			HttpGet httpGet = new HttpGet(API_URL + suburl);
 			httpGet.addHeader("Accept", "application/json");
 			HttpResponse response = httpClient.execute(httpGet);
 

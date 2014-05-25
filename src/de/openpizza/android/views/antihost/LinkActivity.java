@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.openpizza.android.R;
-import de.openpizza.android.dirty.NicknameHandler;
-import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.ordermodul.NicknameHandler;
+import de.openpizza.android.ordermodul.OrderFacade;
 
 public class LinkActivity extends ActionBarActivity implements NicknameHandler {
 	private String orderId;

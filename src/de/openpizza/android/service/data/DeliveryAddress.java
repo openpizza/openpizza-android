@@ -1,21 +1,18 @@
 package de.openpizza.android.service.data;
 
 /**
- * delivery_address: {
-        "name": "Max Pizzahunger",
-        "address": "Karlstrasse 123",
-        "postcode": "67676",
-        "city": "Karlsruhe"
-    }
+ * delivery_address: { "name": "Max Pizzahunger", "address": "Karlstrasse 123",
+ * "postcode": "67676", "city": "Karlsruhe" }
+ * 
  * @author flops
- *
+ * 
  */
 public class DeliveryAddress {
 	private String name;
 	private String address;
 	private String postcode;
 	private String city;
-	
+
 	public DeliveryAddress() {
 		// empty constructor for gson
 	}
@@ -60,5 +57,5 @@ public class DeliveryAddress {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 }

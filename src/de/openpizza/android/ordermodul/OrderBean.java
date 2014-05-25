@@ -1,4 +1,4 @@
-package de.openpizza.android.dirty;
+package de.openpizza.android.ordermodul;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,11 @@ import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
 
 public class OrderBean {
-	
-	
+
 	public OrderBean(Order order) {
 		this.order = order;
 	}
-	
-	
+
 	private List<Product> productList = new ArrayList<Product>();
 	private String nickname;
 	private int shopid;
@@ -23,15 +21,14 @@ public class OrderBean {
 	private String host;
 	private String shortlink;
 	private String id;
-	
-	
+
 	private Order order;
 
 	public void setOrderResponse(OrderResponse response) {
 		setOrderResponseWithoutNotify(response);
 		order.fireModelChanged();
 	}
-	
+
 	public void setOrderResponseWithoutNotify(OrderResponse response) {
 		shopid = response.getShop();
 		id = response.getId();
@@ -103,11 +100,11 @@ public class OrderBean {
 	}
 
 	public void addProduct(Product product, Integer quantity) {
-		
+
 		boolean found = false;
-		for(Product p: this.productList) {
-			if(p.getId() == product.getId()) {
-				if(quantity == 0) {
+		for (Product p : this.productList) {
+			if (p.getId() == product.getId()) {
+				if (quantity == 0) {
 					this.productList.remove(p);
 				} else {
 					p.setQuantity(quantity);
@@ -115,12 +112,12 @@ public class OrderBean {
 				found = true;
 			}
 		}
-		if(!found && quantity > 0) {
+		if (!found && quantity > 0) {
 			Log.d("test", product.getCategory());
-			Log.d("se" ,quantity + "");
+			Log.d("se", quantity + "");
 			product.setQuantity(quantity);
 			this.productList.add(product);
 		}
-		
+
 	}
 }
