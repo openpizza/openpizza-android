@@ -110,4 +110,11 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 
 	}
 
+	@Override
+	public void httpPut(OrderContentRequest data,
+			RESTServiceHandler<List<OrderContentResponse>> handler) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

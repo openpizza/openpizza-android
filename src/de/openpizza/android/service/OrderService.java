@@ -89,4 +89,35 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 	}
 
+	@Override
+	public void httpPut(OrderRequest data,
+			RESTServiceHandler<OrderResponse> handler) {
+		String json = gson.toJson(data);
+		new PutTask(handler).execute(json);
+	}
+	private class PutTask extends AsyncTask<String, Void, String> {
+
+		public PutTask(RESTServiceHandler<OrderResponse> handler) {
+			serviceHandler = handler;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			dialog.setMessage("Loading...");
+			dialog.show();
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			return postData("orders/", params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			dialog.dismiss();
+			serviceHandler.handlePutResponse(gson.fromJson(result,
+					OrderResponse.class));
+		}
+
+	}
 }

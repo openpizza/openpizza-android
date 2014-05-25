@@ -63,5 +63,11 @@ public class ShopsService extends RESTService<List<Shop>> implements
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void httpPut(Void data, RESTServiceHandler<List<Shop>> handler) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
