@@ -1,4 +1,7 @@
 package de.openpizza.android.service.data;
+
+import android.R.bool;
+
 /**
  */
 public class OrderRequest {
@@ -6,6 +9,7 @@ public class OrderRequest {
 	private int shop;
 	private DeliveryAddress delivery_address;
 	private String comment;
+	private boolean	complete;
 	
 	public OrderRequest() {
 		//empty constructor for gson
@@ -31,6 +35,9 @@ public class OrderRequest {
 	public int getShop() {
 		return shop;
 	}
+	public boolean getComplete() {
+		return complete;
+	}
 
 	public void setShop(int shop) {
 		this.shop = shop;
@@ -50,6 +57,11 @@ public class OrderRequest {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public void setComplete(boolean b) {
+		this.complete = b;
+		
 	}
 
 }
