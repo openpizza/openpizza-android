@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import de.openpizza.android.R;
 import de.openpizza.android.service.data.Shop;
@@ -16,6 +17,7 @@ public class ShowViewFragment extends Fragment {
 	private TextView street;
 	private TextView plz;
 	private TextView city;
+	private ImageView image;
 	private Shop shop;
 	
 	public ShowViewFragment() {
@@ -49,6 +51,9 @@ public class ShowViewFragment extends Fragment {
 		street.setText(shop.getAddress());
 		plz.setText(shop.getPostcode());
 		city.setText(shop.getCity());
+		
+		image = (ImageView) getView().findViewById(R.id.shop_image);
+		image.setImageResource(R.drawable.pizza5);
 	}
 	
 }
