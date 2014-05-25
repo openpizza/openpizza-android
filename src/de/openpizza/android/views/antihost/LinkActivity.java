@@ -1,30 +1,45 @@
-package de.openpizza.android;
+package de.openpizza.android.views.antihost;
 
 import java.util.List;
 
+import de.openpizza.android.R;
+import de.openpizza.android.R.id;
+import de.openpizza.android.R.layout;
+import de.openpizza.android.R.menu;
+import de.openpizza.android.dirty.NicknameHandler;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.views.host.OrderActivityHost;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
-public class LinkActivity extends ActionBarActivity {
+public class LinkActivity extends ActionBarActivity implements NicknameHandler {
 	private String orderId;
 	private TextView link_view;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_link);
-		
+
 		Uri data = getIntent().getData();
 		List<String> params = data.getPathSegments();
 		orderId = params.get(0); // "id"
+
+		OrderFacade.fetchOrder(orderId, this);
 
 		if (savedInstanceState == null) {
 			PlaceholderFragment placeholderFragment = new PlaceholderFragment();
@@ -34,7 +49,47 @@ public class LinkActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, placeholderFragment).commit();
 		}
-		
+
+		showGetNickDialog(this);
+
+	}
+
+	protected void showGetNickDialog(final NicknameHandler nh) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Enter nickname:");
+
+		// Set up the input
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_TEXT);
+		builder.setView(input);
+
+		// Set up the buttons
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String nickname = input.getText().toString();
+				nh.getNickname(nickname);
+			}
+
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						finish();
+					}
+				});
+
+		builder.show();
+
+	}
+
+	@Override
+	public void getNickname(String nickname) {
+		OrderFacade.setNickname(nickname);
+		Intent intent = new Intent(this, OrderActivityAntihost.class);
+		startActivity(intent);
 	}
 
 	@Override
@@ -72,12 +127,13 @@ public class LinkActivity extends ActionBarActivity {
 					false);
 			return rootView;
 		}
-		
+
 		@Override
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onViewCreated(view, savedInstanceState);
-			TextView link_view = (TextView) getView().findViewById(R.id.link_text_view);
+			TextView link_view = (TextView) getView().findViewById(
+					R.id.link_text_view);
 			Bundle bundle = getArguments();
 			String orderId = bundle.getString("id");
 			link_view.setText("Deine Order ID ist: " + orderId);

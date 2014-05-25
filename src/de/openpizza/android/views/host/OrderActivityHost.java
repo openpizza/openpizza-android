@@ -52,14 +52,9 @@ public class OrderActivityHost extends OrderActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
-		OrderFacade.setModeleChangedListener(this);
-		super.showGetNickDialog();
-	}
-
-	@Override
-	public void setNickname(String nickname) {
-		super.setNickname(nickname);
-		OrderFacade.publish();
-
+		OrderFacade.addModeleChangedListener(this);
+		OrderFacade.createOrder();
+		OrderFacade.sentProducts();
+		OrderFacade.startPulling(this);
 	}
 }

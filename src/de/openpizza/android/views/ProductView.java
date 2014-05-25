@@ -1,5 +1,7 @@
 package de.openpizza.android.views;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -9,24 +11,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.OrderFacade;
 import de.openpizza.android.service.data.Product;
 
 public class ProductView extends ActionBarActivity {
 
-
-	private Product product;
+	private static Product product;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_product_view);
 
+		String productExtra = getIntent().getStringExtra("product");
+		product = new Gson().fromJson(productExtra, Product.class);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
 	}
 
 	@Override
@@ -57,12 +65,9 @@ public class ProductView extends ActionBarActivity {
 		Integer quantity = 0;
 		try {
 			quantity = Integer.parseInt(quanEditText.getText().toString());
-			if (quantity != 0) {
-				OrderFacade.addProduct(this.product, quantity);
-			}
 		} catch (Exception e) {
-
 		}
+		OrderFacade.addProduct(this.product, quantity);
 		finish();
 
 	}
@@ -80,6 +85,20 @@ public class ProductView extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_product_view,
 					container, false);
+			TextView nameView = (TextView) rootView.findViewById(R.id.product_name);
+			nameView.setText(product.getName());
+			TextView descView = (TextView) rootView.findViewById(R.id.product_desc);
+			descView.setText("");
+
+			List<Product> products = OrderFacade.getProductList();
+
+			for (Product p : products) {
+				if (p.getId() == product.getId()) {
+					TextView countView = (TextView) rootView
+							.findViewById(R.id.product_count);
+					countView.setText(product.getQuantity()+"");
+				}
+			}
 			return rootView;
 		}
 	}

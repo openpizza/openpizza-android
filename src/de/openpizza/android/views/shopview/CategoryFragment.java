@@ -1,5 +1,7 @@
 package de.openpizza.android.views.shopview;
 
+import com.google.gson.Gson;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,6 +59,7 @@ public class CategoryFragment extends Fragment {
 				Intent intent = new Intent(getActivity(),
 						ProductView.class);
 				intent.putExtra("productId", product.getId());
+				intent.putExtra("product", new Gson().toJson(product));
 				startActivity(intent);
 			}
 		});

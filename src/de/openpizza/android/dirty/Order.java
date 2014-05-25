@@ -14,18 +14,15 @@ import de.openpizza.android.service.data.OrderRequest;
 import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
+import de.openpizza.android.views.host.OrderActivityHost;
 
-public class Order implements RESTServiceHandler<OrderResponse> {
+public class Order{
 
-	private List<Product> productList = new ArrayList<Product>();
-	private String nickname;
-	private int shopid;
 	private Activity context;
-	private List<OrderContentResponse> productFormOthers = new ArrayList<OrderContentResponse>();
 	private List<ModelChangedListener> changedListeners = new ArrayList<ModelChangedListener>();
-	private String host;
-	private String shortlink;
-	private String id;
+	private OrderBean orderBean;
+	private CreateOrder createOrder;
+	private SendOrder sendOrder;
 
 	public void addListener(ModelChangedListener l) {
 		changedListeners.add(l);
@@ -33,144 +30,55 @@ public class Order implements RESTServiceHandler<OrderResponse> {
 
 	public Order(int shopid, Activity context) {
 		this.context = context;
-		this.shopid = shopid;
+		this.orderBean = new OrderBean(this);
+		this.orderBean.setShopid(shopid);
+		this.createOrder = new CreateOrder(orderBean, context, context);
+		this.sendOrder = new SendOrder(orderBean, context, context);
 	}
 
-	public Order(Activity context2) {
-		this.context = context2;
+	public Order(Activity context) {
+		this.context = context;
+		this.orderBean = new OrderBean(this);
+		this.createOrder = new CreateOrder(orderBean, context, context);
+		this.sendOrder = new SendOrder(orderBean, context, context);
 	}
 
-	public String getNickname() {
-		return nickname;
-
+	public void createOrder() {
+		createOrder.createOrderOnServer();
 	}
 
-	public void addProduct(Product product) {
-		productList.add(product);
+	public void fetchOrder(String id) {
+		createOrder.fetchOrder(id);
 	}
-
-	public void publish() {
-		createOrderOnServer();
+	
+	public void startPulling(Activity orderActivityHost) {
+		sendOrder.startPulling(orderActivityHost);
 	}
-
-	private void createOrderOnServer() {
-		OrderRequest orderRequest = new OrderRequest();
-		orderRequest.setShop(shopid);
-		// Down Cast
-		OrderService service = new OrderService((Activity) this.context);
-		service.httpPost(orderRequest, this);
-
-	}
-
+	
 	public void sendProductList() {
-		OrderContentService contentService = new OrderContentService(context);
-		contentService.setNickname(nickname);
-
-		if (!productList.isEmpty()) {
-			OrderContentRequest orderContentRequest = new OrderContentRequest();
-			orderContentRequest.setProducts(productList);
-			contentService.httpPost(orderContentRequest,
-					new OrderContentRespondHandler());
-
+		sendOrder.sendProductList();
+	}
+	
+	public void fireModelChanged() {
+		for (ModelChangedListener l : this.changedListeners) {
+			l.onModelChanged(orderBean);
 		}
 
-		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-		final OrderContentService service = new OrderContentService(
-				(Activity) context);
-		final Order order = this;
-		exec.scheduleAtFixedRate(new Runnable() {
-			public void run() {
-				((Activity) context).runOnUiThread(new Runnable() {
+	}
 
-					@Override
-					public void run() {
-						service.httpGet("orders/" + id + "/items", "",
-								new OrderContentRespondHandler());
-					}
-				});
-
-			}
-		}, 0, 60, TimeUnit.SECONDS); // execute every 60 seconds
+	public void addProduct(Product product, Integer quantity) {
+		
+		orderBean.addProduct(product, quantity);
+		
 	}
 
 	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	@Override
-	public void handleGetResponse(OrderResponse response) {
-		this.host = response.getHost();
-		this.shopid = response.getShop();
-		this.shortlink = response.getShort_link();
-		this.id = response.getId();
-		fireModelChanged();
-	}
-
-	private void fireModelChanged() {
-		for (ModelChangedListener l : this.changedListeners) {
-			l.onModelChanged();
-		}
-
-	}
-
-	@Override
-	public void handlePostResponse(OrderResponse response) {
-
-		this.host = response.getHost();
-		this.shopid = response.getShop();
-		this.shortlink = response.getShort_link();
-		this.id = response.getId();
-		fireModelChanged();
-	}
-
-	public List<OrderContentResponse> getProductFormOthers() {
-		return productFormOthers;
-	}
-
-	public void setProductFormOthers(
-			List<OrderContentResponse> productFormOthers) {
-		this.productFormOthers = productFormOthers;
-		fireModelChanged();
-	}
-
-	class PullRespondHandler implements RESTServiceHandler<OrderResponse> {
-
-		@Override
-		public void handleGetResponse(OrderResponse response) {
-			fireModelChanged();
-		}
-
-		@Override
-		public void handlePostResponse(OrderResponse response) {
-
-		}
-
-	}
-
-	class OrderContentRespondHandler implements
-			RESTServiceHandler<List<OrderContentResponse>> {
-
-		@Override
-		public void handleGetResponse(List<OrderContentResponse> response) {
-			setProductFormOthers(response);
-			fireModelChanged();
-		}
-
-		@Override
-		public void handlePostResponse(List<OrderContentResponse> response) {
-
-		}
-
-	}
-
-	public String getLink() {
-		return this.shortlink;
-	}
-
-	public void get(String id2) {
-		OrderService os = new OrderService(context);
-		os.httpGet("orders/"+id2, "", this);
-
+		orderBean.setNickname(nickname);
 		
 	}
+
+	public List<Product> getProductList() {
+		return orderBean.getProductList();
+	}
+
 }

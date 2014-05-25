@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ import de.openpizza.android.service.restapi.RESTServiceCall;
 import de.openpizza.android.service.restapi.RESTServiceHandler;
 import de.openpizza.android.views.host.ShopViewHost;
 
-	public class ShopOverview extends ActionBarActivity implements
+	public class ShopOverview extends FragmentActivity implements
 			RESTServiceHandler<List<Shop>> {
 
 	private RESTServiceCall<Void, List<Shop>> service;

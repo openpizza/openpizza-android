@@ -105,8 +105,7 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
-			Type listType = new TypeToken<List<OrderContentResponse>>() {}.getType();
-			serviceHandler.handlePostResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
+//			serviceHandler.handlePostResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
 		}
 
 	}

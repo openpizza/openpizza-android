@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.Product;
+import de.openpizza.android.views.host.OrderActivityHost;
 
 public class OrderFacade {
 	
@@ -20,44 +21,40 @@ public class OrderFacade {
 		INSTANCE = new Order(shopid, context);
 	}
 	
-	public static void addProduct(Product product, int quantity) {
-		product.setQuantity(quantity);
-		INSTANCE.addProduct(product);
-	}
-	
-	public static void publish() {
-		INSTANCE.publish();
-	}
-	
 	public static void sentProducts() {
 		INSTANCE.sendProductList();
 	}
+	
+	public static void createOrder() {
+		INSTANCE.createOrder();
+	}
+	
+	public static void fetchOrder(String id, Activity context) {
+		INSTANCE = new Order(context);
+		INSTANCE.fetchOrder(id);
+	}
 
-	public static void setModeleChangedListener(
+	public static void startPulling(Activity orderActivityHost) {
+		INSTANCE.startPulling(orderActivityHost);
+	}
+
+	public static void addModeleChangedListener(
 			ModelChangedListener mcl) {
 		INSTANCE.addListener(mcl);
 	}
 
+	public static void addProduct(Product product, Integer quantity) {
+		INSTANCE.addProduct(product, quantity);
+		
+	}
+
 	public static void setNickname(String nickname) {
 		INSTANCE.setNickname(nickname);
+		
 	}
 
-	public static int getOrderMemberCount() {
-		return INSTANCE.getProductFormOthers().size();
+	public static List<Product> getProductList() {
+		return INSTANCE.getProductList();
 	}
-	
-	public static List<OrderContentResponse> getProductFormOthers() {
-		return INSTANCE.getProductFormOthers();
-	}
-
-	public static String getLink() {
-		return INSTANCE.getLink();
-	}
-
-	public static void get(String id,Activity context) {
-		INSTANCE = new Order(context);
-		INSTANCE.get(id);
-	}
-
 
 }

@@ -1,15 +1,18 @@
 package de.openpizza.android.views.host;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.view.MenuItem;
-import de.openpizza.android.dirty.OrderFacade;
-import de.openpizza.android.service.ShopIdService;
-import de.openpizza.android.views.ShopView;
+import android.widget.EditText;
 import de.openpizza.android.R;
+import de.openpizza.android.dirty.NicknameHandler;
+import de.openpizza.android.dirty.OrderFacade;
+import de.openpizza.android.views.ShopView;
 
-public class ShopViewHost extends ShopView {
+public class ShopViewHost extends ShopView implements NicknameHandler {
 
 	@Override
 	protected int getMenuId() {
@@ -31,11 +34,40 @@ public class ShopViewHost extends ShopView {
 
 
 	private void openOrderActivity() {
-		Intent intent = new Intent(getApplicationContext(),
-				OrderActivityHost.class);
-		startActivity(intent);
+		showGetNickDialog(this);
 	}
-	
+		protected void showGetNickDialog(final NicknameHandler nh) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Enter nickname:");
+
+		// Set up the input
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_TEXT);
+		builder.setView(input);
+
+		// Set up the buttons
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String nickname = input.getText().toString();
+				nh.getNickname(nickname);
+			}
+
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						finish();
+					}
+				});
+
+		builder.show();
+
+	}
+		
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +75,14 @@ public class ShopViewHost extends ShopView {
 		OrderFacade.newOrder(super.getShopId(), this);
 
 
+	}
+
+	@Override
+	public void getNickname(String nickname) {
+		OrderFacade.setNickname(nickname);
+		Intent intent = new Intent(getApplicationContext(),
+				OrderActivityHost.class);
+		startActivity(intent);
 	}
 	
 }

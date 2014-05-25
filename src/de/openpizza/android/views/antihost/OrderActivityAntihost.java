@@ -13,7 +13,7 @@ public class OrderActivityAntihost extends OrderActivity {
 
 	@Override
 	protected int getMenuId() {
-		return R.menu.order_host;
+		return R.menu.order_antihost;
 	}
 
 	@Override
@@ -22,10 +22,6 @@ public class OrderActivityAntihost extends OrderActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.finish_order_button) {
-			openSendOrderActivity();
-			return true;
-		}
 
 		if (id == R.id.edit_order_button) {
 			openShopView();
@@ -48,15 +44,7 @@ public class OrderActivityAntihost extends OrderActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
-		OrderFacade.setModeleChangedListener(this);
-		super.showGetNickDialog();
+		OrderFacade.addModeleChangedListener(this);
+		OrderFacade.startPulling(this);
 	}
-
-	@Override
-	public void setNickname(String nickname) {
-		super.setNickname(nickname);
-		OrderFacade.get("sssssssss", this.getParent());
-
-	}
-
 }

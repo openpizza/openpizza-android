@@ -18,11 +18,11 @@
         <activity
             android:name="de.openpizza.android.views.ShopOverview"
             android:label="@string/title_activity_shop_overview" >
-            <intent-filter>
+         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>   
         </activity>
         <activity
             android:name="de.openpizza.android.views.antihost.ShopViewAntihost"
@@ -58,7 +58,7 @@
             android:label="@string/title_activity_send_order" >
         </activity>
         <activity
-            android:name="de.openpizza.android.LinkActivity"
+            android:name="de.openpizza.android.views.antihost.LinkActivity"
             android:label="@string/title_activity_link" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

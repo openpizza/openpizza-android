@@ -31,6 +31,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.ModelChangedListener;
+import de.openpizza.android.dirty.OrderBean;
 import de.openpizza.android.dirty.OrderFacade;
 import de.openpizza.android.service.data.OrderContentResponse;
 import de.openpizza.android.service.data.OrderResponse;
@@ -40,29 +41,28 @@ import de.openpizza.android.service.restapi.RESTServiceHandler;
 public abstract class OrderActivity extends ActionBarActivity implements
 		RESTServiceHandler<OrderResponse>, ModelChangedListener {
 
-	private String nickname;
 	Timer t;
-	private TextView nickname_view;
+	private OrderBean orderBean;
 
 	@Override
-	public void onModelChanged() {
-		setProductList();
-		setMember();
-		setLinks();
+	public void onModelChanged(OrderBean orderBean) {
+		setProductList(orderBean);
+		setMember(orderBean.getProductFormOthers().size());
+		setLinks(orderBean.getShortlink());
+		setNickname(orderBean.getNickname());
 	}
 
-	private void setLinks() {
+	private void setLinks(String str_link) {
 
-		String str_link = OrderFacade.getLink();
 		TextView link = (TextView) findViewById(R.id.link_text);
 		link.setText(str_link);
 		setqr(str_link);
 
 	}
 
-	private void setMember() {
+	private void setMember(int i) {
 		TextView memberReady = (TextView) findViewById(R.id.finish_member);
-		memberReady.setText(OrderFacade.getOrderMemberCount() + "");
+		memberReady.setText(i + "");
 	}
 
 	private void setqr(String qrData) {
@@ -118,10 +118,9 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		listView.setAdapter(adapter);
 	}
 
-	private void setProductList() {
+	private void setProductList(OrderBean orderBean) {
 
-		List<OrderContentResponse> productFormOthers = OrderFacade
-				.getProductFormOthers();
+		List<OrderContentResponse> productFormOthers = orderBean.getProductFormOthers();
 		List<Product> list = new ArrayList<Product>();
 
 		for (OrderContentResponse cr : productFormOthers) {
@@ -156,39 +155,9 @@ public abstract class OrderActivity extends ActionBarActivity implements
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		nickname_view = (TextView) findViewById(R.id.nickname_text);
 	}
 
-	protected void showGetNickDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Enter nickname:");
 
-		// Set up the input
-		final EditText input = new EditText(this);
-		input.setInputType(InputType.TYPE_CLASS_TEXT);
-		builder.setView(input);
-
-		// Set up the buttons
-		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				nickname = input.getText().toString();
-				setNickname(nickname);
-			}
-
-		});
-		builder.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-						finish();
-					}
-				});
-
-		builder.show();
-
-	}
 
 	
 	@Override
@@ -212,12 +181,9 @@ public abstract class OrderActivity extends ActionBarActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void setNickname(String nickname2) {
-		nickname = nickname2;
-		OrderFacade.setNickname(nickname);
-		nickname_view = (TextView) this.findViewById(R.id.nickname_text);
-		nickname_view.setText(nickname2);
-
+	public void setNickname(String nickname) {
+		TextView nickname_view = (TextView) this.findViewById(R.id.nickname_text);
+		nickname_view.setText(nickname);
 	}
 
 	/**
