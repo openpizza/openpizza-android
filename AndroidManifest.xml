@@ -57,6 +57,19 @@
             android:name="de.openpizza.android.views.SendOrderActivity"
             android:label="@string/title_activity_send_order" >
         </activity>
+        <activity
+            android:name="de.openpizza.android.LinkActivity"
+            android:label="@string/title_activity_link" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <data android:scheme="openpizza" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
