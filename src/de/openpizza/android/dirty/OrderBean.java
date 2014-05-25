@@ -28,11 +28,16 @@ public class OrderBean {
 	private Order order;
 
 	public void setOrderResponse(OrderResponse response) {
+		setOrderResponseWithoutNotify(response);
+		order.fireModelChanged();
+	}
+	
+	public void setOrderResponseWithoutNotify(OrderResponse response) {
 		shopid = response.getShop();
 		id = response.getId();
+		Log.d("SetOrderRespons", response.getId());
 		shortlink = response.getShort_link();
 		host = response.getHost();
-		order.fireModelChanged();
 	}
 
 	public List<Product> getProductList() {

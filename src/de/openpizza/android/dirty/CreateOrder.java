@@ -52,6 +52,7 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 	@Override
 	public void handlePostResponse(OrderResponse response) {
 		handleResponse(response);
+		OrderFacade.sentProducts();
 	}
 
 	private void handleResponse(OrderResponse response) {
@@ -60,7 +61,6 @@ public class CreateOrder implements RESTServiceHandler<OrderResponse> {
 
 	@Override
 	public void handlePutResponse(OrderResponse response) {
-		orderBean.setOrderResponse(response);
 		listener.onModelChanged(orderBean);
 	}
 }

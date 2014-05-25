@@ -27,6 +27,7 @@ public class SendOrder implements
 		OrderContentService contentService = new OrderContentService(
 				(Activity) context);
 		contentService.setNickname(orderBean.getNickname());
+		contentService.setId(orderBean.getId());
 
 		if (!orderBean.productListIsEmpty()) {
 			OrderContentRequest orderContentRequest = new OrderContentRequest();
@@ -40,6 +41,7 @@ public class SendOrder implements
 		this.activity = activity;
 		ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
 		final OrderContentService service = new OrderContentService(activity);
+		service.setId(orderBean.getId());
 		final SendOrder sendOrder = this;
 		exec.scheduleAtFixedRate(new Runnable() {
 			public void run() {

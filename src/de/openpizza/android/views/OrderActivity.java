@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,12 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -33,11 +28,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import de.openpizza.android.R;
 import de.openpizza.android.dirty.ModelChangedListener;
 import de.openpizza.android.dirty.OrderBean;
-import de.openpizza.android.dirty.OrderFacade;
 import de.openpizza.android.service.data.OrderContentResponse;
-import de.openpizza.android.service.data.OrderResponse;
 import de.openpizza.android.service.data.Product;
-import de.openpizza.android.service.restapi.RESTServiceHandler;
 
 public abstract class OrderActivity extends ActionBarActivity implements
 		 ModelChangedListener {

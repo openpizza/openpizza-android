@@ -26,7 +26,7 @@ import android.content.Context;
  */
 public abstract class RESTService<T> {
 
-	private static final String API_URL = "http://openpizza.apiary-mock.com/";
+	private static final String API_URL = "http://openpizza.herokuapp.com/";
 	protected RESTServiceHandler<T> serviceHandler;
 	protected Context context;
 	protected ProgressDialog dialog;
@@ -46,7 +46,7 @@ public abstract class RESTService<T> {
 		try {
 			// Create a new HttpClient and Post Header
 			httpClient = new DefaultHttpClient();
-			HttpGet httpGet = new HttpGet("http://openpizza.apiary.io/"
+			HttpGet httpGet = new HttpGet(API_URL
 					+ suburl);
 			httpGet.addHeader("Accept", "application/json");
 			HttpResponse response = httpClient.execute(httpGet);

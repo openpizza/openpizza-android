@@ -43,6 +43,11 @@ public class OrderFacade {
 			ModelChangedListener mcl) {
 		INSTANCE.addListener(mcl);
 	}
+	
+	public static void removeAllListener() {
+		INSTANCE.removeAllListener();
+		
+	}
 
 	public static void addProduct(Product product, Integer quantity) {
 		INSTANCE.addProduct(product, quantity);

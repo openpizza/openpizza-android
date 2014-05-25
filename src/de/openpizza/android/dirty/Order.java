@@ -75,4 +75,8 @@ public class Order{
 		createOrder.sendOrderFinal(address, mcl);
 	}
 
+	public void removeAllListener() {
+		this.changedListeners.clear();
+	}
+
 }

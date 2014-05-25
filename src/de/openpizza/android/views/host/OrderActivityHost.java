@@ -38,6 +38,7 @@ public class OrderActivityHost extends OrderActivity {
 		Intent intent = new Intent(getApplicationContext(),
 				SendOrderActivity.class);
 		startActivity(intent);
+		OrderFacade.removeAllListener();
 	}
 
 	private void openShopView() {
@@ -53,7 +54,6 @@ public class OrderActivityHost extends OrderActivity {
 		setContentView(R.layout.activity_order);
 		OrderFacade.addModeleChangedListener(this);
 		OrderFacade.createOrder();
-		OrderFacade.sentProducts();
 		OrderFacade.startPulling(this);
 	}
 

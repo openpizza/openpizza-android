@@ -84,7 +84,7 @@ import de.openpizza.android.views.host.ShopViewHost;
 			public void onItemSelected(AdapterView<?> arg0,
 					View arg1, int arg2, long arg3) {
 				RESTServiceCall<Void, List<Shop>> service = new ShopsService(getActivity());
-				service.httpGet("shops", "postcode=" + ((City) arg0.getAdapter().getItem(arg2)).name, this);
+				service.httpGet("shops", "postcode=12345", this);
 				Log.d("item",
 						((City) arg0.getAdapter().getItem(arg2)).id);
 			}

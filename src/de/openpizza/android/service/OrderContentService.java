@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,6 +39,9 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 				RESTServiceHandler<List<OrderContentResponse>> handler) {
 			this.url = url;
 			this.httpParams = params;
+			Log.d("OrderContentService", url);
+			Log.d("OrderContentService", params);
+
 			serviceHandler = handler;
 		}
 
@@ -55,6 +59,7 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 		@Override
 		protected void onPostExecute(String result) {
 			dialog.dismiss();
+			Log.d("OrderContentService", result);
 			Type listType = new TypeToken<List<OrderContentResponse>>() {}.getType();
 			serviceHandler.handleGetResponse((List<OrderContentResponse>) gson.fromJson(result, listType));
 		
@@ -99,6 +104,9 @@ public class OrderContentService extends RESTService<List<OrderContentResponse>>
 
 		@Override
 		protected String doInBackground(String... params) {
+			Log.d("OrderContentService.nickname", nickname);
+			Log.d("OrderContentService.parms", params[0]);
+			Log.d("OrderContentService.id", id);
 			return postData("orders/" + id + "/items/" + nickname, params[0]);
 		}
 
