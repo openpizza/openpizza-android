@@ -99,7 +99,7 @@ public class OrderBean {
 		return productList.isEmpty();
 	}
 
-	public void addProduct(Product product, Integer quantity) {
+	public void addProduct(Product product, int quantity) {
 
 		boolean found = false;
 		for (Product p : this.productList) {

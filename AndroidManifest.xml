@@ -19,7 +19,7 @@
 
 
         <activity
-            android:name="de.openpizza.android.shopOverview.ShopOverview"
+            android:name="de.openpizza.android.activitys.shopOverview.ShopOverviewActivity"
             android:label="@string/title_activity_shop_overview" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

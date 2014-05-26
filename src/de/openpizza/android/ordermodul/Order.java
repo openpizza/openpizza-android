@@ -56,7 +56,7 @@ public class Order {
 
 	public void addProduct(Product product, Integer quantity) {
 
-		orderBean.addProduct(product, quantity);
+		orderBean.addProduct(product, quantity.intValue());
 
 	}
 
