@@ -46,8 +46,8 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.setMessage("Loading...");
+//			dialog.show();
 		}
 
 		@Override
@@ -57,7 +57,7 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			Log.d("httpget", result);
 			serviceHandler.handleGetResponse(gson.fromJson(result,
 					OrderResponse.class));
@@ -79,8 +79,8 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.setMessage("Loading...");
+//			dialog.show();
 		}
 
 		@Override
@@ -90,7 +90,7 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			Log.d("httppost", result);
 			serviceHandler.handlePostResponse(gson.fromJson(result,
 					OrderResponse.class));
@@ -115,8 +115,8 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.setMessage("Loading...");
+//			dialog.show();
 		}
 
 		@Override
@@ -126,7 +126,7 @@ public class OrderService extends RESTService<OrderResponse> implements
 
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			Log.d("httpput", result);
 			serviceHandler.handlePutResponse(gson.fromJson(result,
 					OrderResponse.class));

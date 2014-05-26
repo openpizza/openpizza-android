@@ -2,6 +2,9 @@ package de.openpizza.android.service.data;
 
 import java.util.List;
 
+import android.net.Uri;
+import de.openpizza.android.activitys.shop.ShopView;
+
 /**
  * { id: int, name: string, address: string, postcode: string, city: string, }
  * 
@@ -14,6 +17,7 @@ public class Shop {
 	private String city;
 	private List<String> product_categories;
 	private List<Product> products;
+	private String imageUri;
 
 	public Shop() {
 		// Empty constructor needed for gson
@@ -85,6 +89,13 @@ public class Shop {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public void printToView(ShopView shopView) {
+		shopView.printName(this.name);
+		Uri uri = new Uri.Builder().appendPath(this.imageUri).build();
+		shopView.printImage(uri);
+		
 	}
 
 }

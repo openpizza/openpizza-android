@@ -48,7 +48,7 @@ public class OrderContentService extends
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
+//			dialog.setMessage("Loading...");
 			// dialog.show();
 		}
 
@@ -101,8 +101,8 @@ public class OrderContentService extends
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.setMessage("Loading...");
+//			dialog.show();
 		}
 
 		@Override
@@ -115,7 +115,7 @@ public class OrderContentService extends
 
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			// serviceHandler.handlePostResponse((List<OrderContentResponse>)
 			// gson.fromJson(result, listType));
 		}

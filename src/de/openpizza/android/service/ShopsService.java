@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -18,8 +19,8 @@ public class ShopsService extends RESTService<List<Shop>> implements
 		RESTServiceCall<Void, List<Shop>> {
 	Gson gson;
 
-	public ShopsService(Activity activity) {
-		super(activity);
+	public ShopsService(Context context) {
+		super(context);
 		gson = new Gson();
 	}
 
@@ -42,8 +43,8 @@ public class ShopsService extends RESTService<List<Shop>> implements
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.setMessage("Loading...");
+//			dialog.show();
 		}
 
 		@Override
@@ -54,7 +55,7 @@ public class ShopsService extends RESTService<List<Shop>> implements
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			Type listType = new TypeToken<List<Shop>>() {
 			}.getType();
 			serviceHandler.handleGetResponse((List<Shop>) gson.fromJson(result,

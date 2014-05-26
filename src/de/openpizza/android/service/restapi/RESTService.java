@@ -29,11 +29,9 @@ public abstract class RESTService<T> {
 	private static final String API_URL = "http://openpizza.herokuapp.com/";
 	protected RESTServiceHandler<T> serviceHandler;
 	protected Context context;
-	protected ProgressDialog dialog;
 
-	public RESTService(Activity activity) {
-		this.context = activity;
-		this.dialog = new ProgressDialog(activity);
+	public RESTService(Context context) {
+		this.context = context;
 	}
 
 	/**

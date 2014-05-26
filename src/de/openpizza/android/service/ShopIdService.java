@@ -38,8 +38,8 @@ public class ShopIdService extends RESTService<Shop> implements
 
 		@Override
 		protected void onPreExecute() {
-			dialog.setMessage("Loading...");
-			dialog.show();
+//			dialog.setMessage("Loading...");
+//			dialog.show();
 		}
 
 		@Override
@@ -49,7 +49,7 @@ public class ShopIdService extends RESTService<Shop> implements
 
 		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+//			dialog.dismiss();
 			serviceHandler.handleGetResponse(gson.fromJson(result, Shop.class));
 		}
 	}
